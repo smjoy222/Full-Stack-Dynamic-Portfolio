@@ -1,0 +1,100 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: sans-serif;
+  background-color: #f4f4f4;
+  color: #333;
+  padding: 20px;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+nav u {
+  margin: 0 15px;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.chat-btn {
+  padding: 8px 15px;
+  background-color: black;
+  font-weight: bold;
+  color: white;
+}
+
+.intro {
+  display: flex;
+  justify-content: space-between;
+  /* align-items: flex-start;
+  flex-wrap: wrap; */
+}
+
+.info {
+  max-width: 50%;
+}
+
+.info h1 {
+  font-size: 36px;
+  margin-bottom: 10px;
+}
+
+.highlight {
+  background-color: gray;
+  padding: 4px 10px;
+  border-radius: 5px;
+}
+
+.info p {
+  margin: 10px 0;
+}
+
+.buttons {
+  margin: 20px 0;
+}
+
+.hire, .projects {
+  padding: 10px 15px;
+  margin-right: 10px;
+  border: 1px solid gray;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.image-box {
+  max-width: 40%;
+}
+
+.profile-image {
+
+  width: 100%;
+  height: 350px;
+  background-color: aqua;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  border-radius: 50%;
+}
+
+.email {
+  margin-top: 20px;
+}
+
+.email a {
+  color: black;
+  text-decoration: none;
+}
