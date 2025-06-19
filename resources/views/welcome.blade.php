@@ -8,13 +8,15 @@
 </head>
 <body>
   <header>
-    <div class="logo">Joy.</div>
-    <nav>
-      <u href="">Home</u>
-      <u href="">Work</u>
-      <u href="">About</u>
-      <u href="">Project</u>
-    </nav>
+      <div class="logo">Joy.</div>
+      <nav>
+    <ul>
+        <li><a href="{{ url('/') }}">Home</a></li>
+        <li><a href="{{ url('/about') }}">About</a></li>
+        <li><a href="{{ url('/work') }}">Work</a></li>
+        <li><a href="{{ url('/project') }}">Project</a></li>
+    </ul>
+      </nav>
     <button class="chat-btn">Let's Chat</button>
   </header>
 
