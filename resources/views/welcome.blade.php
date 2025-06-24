@@ -1,44 +1,59 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>SM Joy Portfolio</title>
-  <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
-</head>
-<body>
-  <header>
-      <div class="logo">Joy.</div>
-      <nav>
-    <ul>
-        <li><a href="{{ url('/') }}">Home</a></li>
-        <li><a href="{{ url('/about') }}">About</a></li>
-        <li><a href="{{ url('/work') }}">Work</a></li>
-        <li><a href="{{ url('/project') }}">Project</a></li>
-    </ul>
-      </nav>
-    <button class="chat-btn">Let's Chat</button>
-  </header>
+@extends('index')
+@push('style')
+    <title>Home</title>
+@endpush
+@section('main-Content')
 
-  <main>
-    <section class="intro">
-      <div class="info">
-        <h1>Hi! I am <span class="highlight">(UI/UX)</span><br>SM Joy</h1>
-        <p>Design user interfaces<br> for over <strong>7 years</strong> as a <br> project designer</p>
-        <div class="buttons">
-          <button class="hire">Hire Me</button>
-          <button class="projects">Project →</button>
+<header>
+    <div class="logo"><span>J</span>oy</div>
+<ul class="navlist">    
+        <li><a href="/">Home</a></li>
+        <li><a href="/work">Work</a></li>
+        <li><a href="/project">Project</a></li>
+        <li><a href="/about">About</a></li>
+    </ul>
+    <div id="menu-icon" class="bi bi-list"></div>
+</header>
+
+<!-- home section -->
+<section id="home" class="home">
+    <div class="home-content">
+        <h1>Hi! I'm Joy</h1>
+        <div class="change-text">
+          <h3>And I'm </h3>
+          <h3>
+            <span class="word">Web Developer</span>
+            <span class="word">Student</span>
+            <span class="word">UI/UX Designer</span>
+            <span class="word">Software Developer</span>
+            <span class="word">Frontend Developer</span>
+          </h3>
         </div>
-        <div class="stats">
-          <p>84+ clients on work</p>
-          <p>200+ projects done</p>
+        <p>I'm a web developer with a passion for creating beautiful and functional websites. I love coding and I'm always eager to learn new technologies.</p>
+
+        <div class="info-box">
+          <div class="email-info">
+            <h5>Email</h5>
+            <span>smjoy222@gmail.com</span>
+          </div>
         </div>
-        <p class="email"> Contact Mail: <a href="mailto:smjoy222@gmail.com">smjoy222@gmail.com</a></p>
+
+        <div class="btn-box">
+          <a href="#" class="btn">Download CV</a>
+          <a href="#" class="btn">Contact Me</a>
+        </div>
+
+        <div class="social-icons">
+          <a href="#"><i class="bi bi-facebook"></i></a>
+          <a href="#"><i class="bi bi-github"></i></a>
+          <a href="#"><i class="bi bi-instagram"></i></a>
+          <a href="#"><i class="bi bi-linkedin"></i></a>
+        </div>
+    </div>
+
+    <div class="home-img">
+      <div class="img-box">
+        <img src="{{ asset('assets/images/me.jpg') }}" alt="Profile picture">
       </div>
-      <div class="image-box">
-        <img src="{{ asset('assets/images/me.jpg') }}" alt="My Profile" class="profile-image">
-      </div>
-    </section>
-  </main>
-</body>
-</html>
+    </div>
+</section>
