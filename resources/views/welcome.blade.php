@@ -8,7 +8,7 @@
     <div class="logo"><span>J</span>oy</div>
 <ul class="navlist">    
         <li><a href="/">Home</a></li>
-        <li><a href="/work">Work</a></li>
+        <li><a href="/edu">Education</a></li>
         <li><a href="/project">Project</a></li>
         <li><a href="/about">About</a></li>
     </ul>

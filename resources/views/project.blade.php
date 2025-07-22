@@ -1,17 +1,15 @@
 @extends('index')
 
 @push('style')
-    <title>Work</title>
+    <title>Project</title>
 @endpush
 
-@section('main-Content')
-@endsection
 @section('main-Content')
     <header>
         <div class="logo"><span>J</span>oy</div>
         <ul class="navlist">    
             <li><a href="/">Home</a></li>
-            <li><a href="/work">Work</a></li>
+            <li><a href="/edu">Education</a></li>
             <li><a href="/project">Project</a></li>
             <li><a href="/about">About</a></li>
         </ul>

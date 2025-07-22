@@ -1,24 +1,52 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\PortfolioController;
+use App\Http\Controllers\controller;
+use App\Http\Controllers\AuthenticationController;
 
-// Portfolio routes with database integration
-Route::get('/', [PortfolioController::class, 'index'])->name('home');
-Route::get('/about', [PortfolioController::class, 'about'])->name('about');
-Route::get('/work', [PortfolioController::class, 'work'])->name('work');
-Route::get('/project', [PortfolioController::class, 'projects'])->name('projects');
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider and all of them will
+| be assigned to the "web" middleware group. Make something great!
+|
+*/
 
-// API routes for AJAX requests
-Route::prefix('api')->group(function () {
-    Route::get('/projects', [PortfolioController::class, 'apiProjects']);
-    Route::get('/skills', [PortfolioController::class, 'apiSkills']);
-    Route::get('/education', [PortfolioController::class, 'apiEducation']);
-    Route::get('/experiences', [PortfolioController::class, 'apiExperiences']);
-    Route::get('/achievements', [PortfolioController::class, 'apiAchievements']);
+Route::get('/', function () {
+    return view('welcome');
 });
 
-// Keep the original lp1 route if needed
-Route::get('/lp1', function () {
-    return view('lp1');
+Route::get('/edu', function () {
+    return view('edu');
+});
+
+Route::get('/project', function () {
+    return view('project');
+});
+
+Route::get('/about', function () {
+    return view('about');
+});
+
+Route::get('/login', function () {
+    return view('auth.login');
+});
+
+Route::get('/register', function () {
+    return view('auth.register');
+});
+
+Route::post('/login', [AuthenticationController::class, 'login']);
+
+Route::post('/register', [AuthenticationController::class, 'register']);
+
+Route::middleware('auth')->group(function(){
+    Route::get('/admin/dashboard', [Controller::class, 'dashboard']);
+});
+
+Route::group(['prefix' => 'admin'], function () {
+    Voyager::routes();
 });
