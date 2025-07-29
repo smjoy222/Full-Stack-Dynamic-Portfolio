@@ -145,3 +145,98 @@
   </div>
 </section>
 <!--about section end-->
+
+<!--project section-->
+<section id="projects" class="projects">
+  <div class="main-text">
+    <span>What I Do</span>
+    <h2>Latest Projects</h2>
+  </div>
+
+  <div class="section-projects">
+    <div class="project-box">
+      <i class="bi bi-stack project-icon"></i>
+      <h3>Web Developer</h3>
+      <p>I specialize in building responsive and user-friendly websites using modern web technologies.</p>
+      <div class="btn-box project-btn">
+        <a href="#" class="btn">Read More</a>
+      </div>
+    </div>
+
+    <div class="project-box">
+      <i class="bi bi-code-slash project-icon"></i>
+      <h3>Web Developer</h3>
+      <p>I specialize in building responsive and user-friendly websites using modern web technologies.</p>
+      <div class="btn-box project-btn">
+        <a href="#" class="btn">Read More</a>
+      </div>
+    </div>
+
+    <div class="project-box">
+      <i class="bi bi-display project-icon"></i>
+      <h3>Web Developer</h3>
+      <p>I specialize in building responsive and user-friendly websites using modern web technologies.</p>
+      <div class="btn-box project-btn">
+        <a href="#" class="btn">Read More</a>
+      </div>
+    </div>
+  </div>
+</section>
+<!--project section end-->
+
+<!--skill section-->
+<section id="skills" class="skills">
+  <div class="main-text">
+    <span>Technical and professional</span>
+    <h2>My Skills</h2>
+  </div>
+
+  <div class="skill-main">
+    <div class="skill-left">
+      <h3>Technical Skills</h3>
+      <div class="skill-bar">
+        <div class="info">
+          <p>HTML</p>
+          <p>72%</p>
+        </div>
+        <div class="bar">
+          <span>html</span>
+        </div>
+      </div>
+
+      <div class="skill-bar">
+        <div class="info">
+          <p>Flutter</p>
+          <p>80%</p>
+        </div>
+        <div class="bar">
+          <span>flutter</span>
+        </div>
+      </div>
+
+      <div class="skill-bar">
+        <div class="info">
+          <p>Programming</p>
+          <p>85%</p>
+        </div>
+        <div class="bar">
+          <span>programming</span>
+        </div>
+      </div>
+
+      <div class="skill-bar">
+        <div class="info">
+          <p>Research</p>
+          <p>90%</p>
+        </div>
+        <div class="bar">
+          <span>research</span>
+        </div>
+      </div>
+    </div>
+    <div class="skill-right">
+      <h3>professional Skills</h3>
+    </div>
+  </div>
+</section>
+@endsection
