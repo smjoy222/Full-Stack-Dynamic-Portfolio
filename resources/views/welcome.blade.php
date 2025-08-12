@@ -200,7 +200,7 @@
           <p>72%</p>
         </div>
         <div class="bar">
-          <span>html</span>
+          <span class="html"></span>
         </div>
       </div>
 
@@ -210,7 +210,7 @@
           <p>80%</p>
         </div>
         <div class="bar">
-          <span>flutter</span>
+          <span class="flutter"></span>
         </div>
       </div>
 
@@ -220,7 +220,7 @@
           <p>85%</p>
         </div>
         <div class="bar">
-          <span>programming</span>
+          <span class="programming"></span>
         </div>
       </div>
 
@@ -230,13 +230,47 @@
           <p>90%</p>
         </div>
         <div class="bar">
-          <span>research</span>
+          <span class="research"></span>
         </div>
       </div>
     </div>
     <div class="skill-right">
       <h3>professional Skills</h3>
+      <div class="professional">
+        <div class="box">
+          <div class="circle" data-dots="80" data-percent="90"></div>
+          <div class="text">
+            <big>90%</big>
+            <small>Team Work</small>
+          </div>
+        </div>
+
+        <div class="box">
+          <div class="circle" data-dots="80" data-percent="80"></div>
+          <div class="text">
+            <big>80%</big>
+            <small>Creativity</small>
+          </div>
+        </div>
+
+        <div class="box">
+          <div class="circle" data-dots="80" data-percent="70"></div>
+          <div class="text">
+            <big>70%</big>
+            <small>Project Management</small>
+          </div>
+        </div>
+
+        <div class="box">
+          <div class="circle" data-dots="80" data-percent="75"></div>
+          <div class="text">
+            <big>75%</big>
+            <small>Communication</small>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
+<!--skill section-->
 @endsection
