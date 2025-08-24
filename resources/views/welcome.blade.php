@@ -194,83 +194,39 @@
   <div class="skill-main">
     <div class="skill-left">
       <h3>Technical Skills</h3>
-      <div class="skill-bar">
-        <div class="info">
-          <p>HTML</p>
-          <p>72%</p>
+      @forelse(($technicalSkills ?? []) as $t)
+        <div class="skill-bar">
+          <div class="info">
+            <p>{{ $t->name }}</p>
+            <p>{{ (int) $t->level }}%</p>
+          </div>
+          <div class="bar">
+            <span style="width: {{ (int) $t->level }}%;"></span>
+          </div>
         </div>
-        <div class="bar">
-          <span class="html"></span>
-        </div>
-      </div>
-
-      <div class="skill-bar">
-        <div class="info">
-          <p>Flutter</p>
-          <p>80%</p>
-        </div>
-        <div class="bar">
-          <span class="flutter"></span>
-        </div>
-      </div>
-
-      <div class="skill-bar">
-        <div class="info">
-          <p>Programming</p>
-          <p>85%</p>
-        </div>
-        <div class="bar">
-          <span class="programming"></span>
-        </div>
-      </div>
-
-      <div class="skill-bar">
-        <div class="info">
-          <p>Research</p>
-          <p>90%</p>
-        </div>
-        <div class="bar">
-          <span class="research"></span>
-        </div>
-      </div>
+      @empty
+        <p>No technical skills yet.</p>
+      @endforelse
     </div>
     <div class="skill-right">
-      <h3>professional Skills</h3>
+      <h3>Professional Skills</h3>
       <div class="professional">
-        <div class="box">
-          <div class="circle" data-dots="80" data-percent="90"></div>
-          <div class="text">
-            <big>90%</big>
-            <small>Team Work</small>
+        @forelse(($softSkills ?? []) as $s)
+          <div class="box">
+            <div class="circle" data-dots="80" data-percent="{{ (int) $s->level }}"></div>
+            <div class="text">
+              <big>{{ (int) $s->level }}%</big>
+              <small>{{ $s->name }}</small>
+            </div>
           </div>
-        </div>
-
-        <div class="box">
-          <div class="circle" data-dots="80" data-percent="80"></div>
-          <div class="text">
-            <big>80%</big>
-            <small>Creativity</small>
-          </div>
-        </div>
-
-        <div class="box">
-          <div class="circle" data-dots="80" data-percent="70"></div>
-          <div class="text">
-            <big>70%</big>
-            <small>Project Management</small>
-          </div>
-        </div>
-
-        <div class="box">
-          <div class="circle" data-dots="80" data-percent="75"></div>
-          <div class="text">
-            <big>75%</big>
-            <small>Communication</small>
-          </div>
-        </div>
+        @empty
+          <p>No professional skills yet.</p>
+        @endforelse
       </div>
     </div>
   </div>
+
+  {{-- Professional circles are styled by the existing project JS/CSS via data attributes. No inline overrides. --}}
 </section>
 <!--skill section-->
 @endsection

@@ -20,23 +20,43 @@
     <div class="education-content">
         <h1>My Education</h1>
         <p>Here is my educational background and qualifications.</p>
-        
+
         <div class="education-cards">
-            <div class="education-card">
-                <h3>Bachelor of Science in Computer Science</h3>
-                <p><strong>University:</strong> University of Dhaka</p>
-                <p><strong>Year:</strong> 2021-2025</p>
-                <p><strong>CGPA:</strong> 3.85/4.00</p>
-            </div>
-            
-            <div class="education-card">
-                <h3>Higher Secondary Certificate (HSC)</h3>
-                <p><strong>College:</strong> Dhaka College</p>
-                <p><strong>Year:</strong> 2018-2020</p>
-                <p><strong>Grade:</strong> A+</p>
-            </div>
+            @forelse(($educations ?? []) as $edu)
+                <div class="education-card">
+                    <h3>{{ $edu->type }} {{ $edu->name ? '— '.$edu->name : '' }}</h3>
+                    <p><strong>Institute:</strong> {{ $edu->institute }}</p>
+                    <p>
+                        <strong>Year:</strong>
+                        {{ $edu->enrolled_year }}
+                        @if(!empty($edu->passing_year)) - {{ $edu->passing_year }} @else - Present @endif
+                    </p>
+                    @if(!empty($edu->grade))
+                        <p><strong>Grade/CGPA:</strong> {{ $edu->grade }}</p>
+                    @endif
+                </div>
+            @empty
+                <div class="education-card">
+                    <p>No education records found. Please add them from the Admin panel.</p>
+                </div>
+            @endforelse
         </div>
     </div>
+    
+    <style>
+        /* Lightweight styles to match the project's card layout */
+        .education { padding: 4rem 1rem; }
+        .education-content { max-width: 1100px; margin: 0 auto; }
+        .education-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.25rem; margin-top: 1.5rem; }
+        .education-card { background: #0b0f1a; border: 1px solid #1e293b; border-radius: 12px; padding: 1.25rem; box-shadow: 0 4px 16px rgba(0,0,0,0.25); }
+        .education-card h3 { margin: 0 0 .5rem; color: #e2e8f0; font-size: 1.125rem; }
+        .education-card p { margin: .25rem 0; color: #94a3b8; }
+        @media (prefers-color-scheme: light) {
+            .education-card { background: #ffffff; border-color: #e5e7eb; }
+            .education-card h3 { color: #111827; }
+            .education-card p { color: #4b5563; }
+        }
+    </style>
 </section>
 
 @endsection

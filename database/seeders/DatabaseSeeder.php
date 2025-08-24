@@ -13,11 +13,19 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        $this->call([
+            // Voyager core seeders (creates roles, permissions, menus, settings, etc.)
+            VoyagerDatabaseSeeder::class,
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+            // Voyager's default admin user (uses roles table)
+            UsersTableSeeder::class,
+
+            // Project-specific roles/users seeding (safe upsert)
+            RolesAndUsersSeeder::class,
+
+            // Register BREAD for portfolio tables and seed sample data
+            PortfolioBreadSeeder::class,
+            PortfolioSeeder::class,
         ]);
     }
 }

@@ -20,14 +20,26 @@ class PortfolioSeeder extends Seeder
      */
     public function run(): void
     {
-        // Create a sample user
-        $user = User::create([
-            'name' => 'SM Joy',
-            'email' => 'smjoy222@gmail.com',
-            'phone' => '+8801234567890',
-            'student_id' => 'CSE2021001',
-            'password' => bcrypt('password'),
-        ]);
+        // Ensure user role exists and create/update a sample user with role_id
+        $roleId = \DB::table('roles')->where('name', 'user')->value('id')
+            ?? \DB::table('roles')->insertGetId([
+                'name' => 'user',
+                'display_name' => 'User',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+
+        $user = User::updateOrCreate(
+            ['email' => 'smjoy222@gmail.com'],
+            [
+                'name' => 'SM Joy',
+                'phone' => '+8801234567890',
+                'student_id' => 'CSE2021001',
+                'password' => bcrypt('password'),
+                'role_id' => $roleId,
+                'email_verified_at' => now(),
+            ]
+        );
 
         // Create personal details
         PersonalDetail::create([
@@ -65,16 +77,18 @@ class PortfolioSeeder extends Seeder
             'status' => 'active',
         ]);
 
-        // Create skills
+        // Create skills to match provided UI (technical left bars and professional right circles)
         $skills = [
-            ['name' => 'Laravel', 'type' => 'technical', 'level' => 'expert'],
-            ['name' => 'PHP', 'type' => 'technical', 'level' => 'expert'],
-            ['name' => 'JavaScript', 'type' => 'technical', 'level' => 'intermediate'],
-            ['name' => 'Vue.js', 'type' => 'technical', 'level' => 'intermediate'],
-            ['name' => 'MySQL', 'type' => 'technical', 'level' => 'expert'],
-            ['name' => 'HTML/CSS', 'type' => 'technical', 'level' => 'expert'],
-            ['name' => 'Communication', 'type' => 'soft', 'level' => 'expert'],
-            ['name' => 'Team Work', 'type' => 'soft', 'level' => 'expert'],
+            // Technical
+            ['name' => 'HTML', 'type' => 'technical', 'level' => 72],
+            ['name' => 'Flutter', 'type' => 'technical', 'level' => 80],
+            ['name' => 'Programming', 'type' => 'technical', 'level' => 85],
+            ['name' => 'Research', 'type' => 'technical', 'level' => 90],
+            // Professional
+            ['name' => 'Team Work', 'type' => 'soft', 'level' => 90],
+            ['name' => 'Creativity', 'type' => 'soft', 'level' => 80],
+            ['name' => 'Project Management', 'type' => 'soft', 'level' => 70],
+            ['name' => 'Communication', 'type' => 'soft', 'level' => 75],
         ];
 
         foreach ($skills as $skill) {
