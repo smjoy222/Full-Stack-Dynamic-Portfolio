@@ -40,14 +40,14 @@
 
         <div class="btn-box">
           <a href="#" class="btn">Download CV</a>
-          <a href="#" class="btn">Contact Me</a>
+          <a href="https://mail.google.com/mail/?view=cm&fs=1&to=smjoy222@gmail.com" target="_blank" rel="noopener noreferrer" class="btn">Contact Me</a>
         </div>
 
         <div class="social-icons">
-          <a href="#"><i class="bi bi-facebook"></i></a>
-          <a href="#"><i class="bi bi-github"></i></a>
-          <a href="#"><i class="bi bi-instagram"></i></a>
-          <a href="#"><i class="bi bi-linkedin"></i></a>
+          <a href="https://github.com/smjoy222"><i class="bi bi-github"></i></a>
+          <a href="https://www.linkedin.com/in/sazzad-mahmud-joy-2a5391296/"><i class="bi bi-linkedin"></i></a>
+          {{-- <a href="#"><i class="bi bi-facebook"></i></a> --}}
+          {{-- <a href="#"><i class="bi bi-instagram"></i></a> --}} 
         </div>
     </div>
 
@@ -115,74 +115,9 @@
 </section>
 <!--home section end-->
 
-<!--about section-->
-<section id="about" class="about">
-  <div class="img-about">
-    <img src="{{ asset('assets/images/logo.png') }}" alt="">
-    <div class="info-about1">
-      <span>10+</span>
-      <p>Years of Experience</p>
-    </div>
-    <div class="info-about2">
-      <span>150+</span>
-      <p>Projects Completed</p>
-    </div>
-    <div class="info-about3">
-      <span>200+</span>
-      <p>Happy Clients</p>
-    </div>
-  </div>
+<!--about section moved to About page-->
 
-  <div class="about-content">
-    <span>Let me introduce myself</span>
-    <h2>About Me</h2>
-    <h3>A story of good</h3>
-    <p>I'm a passionate web developer with a strong background in creating dynamic and responsive websites. My expertise lies in HTML, CSS, JavaScript, and various frameworks that enhance user experience.
-    <br>I enjoy tackling challenges and continuously improving my skills to stay updated with the latest web technologies.</p>
-    <div class="btn-box">
-      <a href="#" class="btn">Read More</a>
-    </div>
-  </div>
-</section>
-<!--about section end-->
-
-<!--project section-->
-<section id="projects" class="projects">
-  <div class="main-text">
-    <span>What I Do</span>
-    <h2>Latest Projects</h2>
-  </div>
-
-  <div class="section-projects">
-    <div class="project-box">
-      <i class="bi bi-stack project-icon"></i>
-      <h3>Web Developer</h3>
-      <p>I specialize in building responsive and user-friendly websites using modern web technologies.</p>
-      <div class="btn-box project-btn">
-        <a href="#" class="btn">Read More</a>
-      </div>
-    </div>
-
-    <div class="project-box">
-      <i class="bi bi-code-slash project-icon"></i>
-      <h3>Web Developer</h3>
-      <p>I specialize in building responsive and user-friendly websites using modern web technologies.</p>
-      <div class="btn-box project-btn">
-        <a href="#" class="btn">Read More</a>
-      </div>
-    </div>
-
-    <div class="project-box">
-      <i class="bi bi-display project-icon"></i>
-      <h3>Web Developer</h3>
-      <p>I specialize in building responsive and user-friendly websites using modern web technologies.</p>
-      <div class="btn-box project-btn">
-        <a href="#" class="btn">Read More</a>
-      </div>
-    </div>
-  </div>
-</section>
-<!--project section end-->
+<!--projects section moved to Project page-->
 
 <!--skill section-->
 <section id="skills" class="skills">
