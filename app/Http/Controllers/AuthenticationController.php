@@ -19,10 +19,15 @@ class AuthenticationController extends Controller
         );
 
         if(Auth::attempt($credentials)){
-            return view("admin.dashboard");
+            $request->session()->regenerate();
+            $user = Auth::user();
+            if ((int)($user->role_id ?? 0) === 1) {
+                return redirect()->route('admin.dashboard');
+            }
+            return redirect('/')->with('success', 'Logged in successfully. You do not have admin access.');
         }
         else{
-            echo "Login failed. Invalid email or password.";
+            return back()->withErrors(['email' => 'Login failed. Invalid email or password.'])->onlyInput('email');
         }
     }
 
@@ -50,6 +55,14 @@ class AuthenticationController extends Controller
         // Auto login after registration
         Auth::login($user);
 
-        return redirect('/admin')->with('success', 'Registration successful!');
+        return redirect()->route('admin.dashboard')->with('success', 'Registration successful!');
+    }
+
+    function logout(Request $request)
+    {
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect('/');
     }
 }

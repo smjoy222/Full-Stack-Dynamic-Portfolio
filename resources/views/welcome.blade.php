@@ -160,8 +160,6 @@
       </div>
     </div>
   </div>
-
-  {{-- Professional circles are styled by the existing project JS/CSS via data attributes. No inline overrides. --}}
 </section>
 <!--skill section-->
 @endsection

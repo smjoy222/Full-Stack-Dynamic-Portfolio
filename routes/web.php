@@ -1,10 +1,18 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use TCG\Voyager\Facades\Voyager;
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\EducationController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Admin\EducationAdminController;
+use App\Http\Controllers\Admin\SkillAdminController;
+use App\Http\Controllers\Admin\ProjectAdminController;
+use App\Http\Controllers\Admin\ExperienceAdminController;
+use App\Http\Controllers\Admin\AchievementAdminController;
+use App\Http\Controllers\Admin\InfoAdminController;
+use App\Http\Controllers\Admin\PersonalDetailAdminController;
+use App\Http\Controllers\Admin\ProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,23 +38,41 @@ Route::get('/about', function () {
 });
 
 Route::get('/login', function () {
-    return redirect()->route('voyager.login');
+    return view('auth.login');
 })->name('login');
 
 Route::get('/register', function () {
     return view('auth.register');
 });
 
-Route::post('/login', [AuthenticationController::class, 'login']);
+Route::post('/login', [AuthenticationController::class, 'login'])->name('login.attempt');
 
 Route::post('/register', [AuthenticationController::class, 'register']);
 
-Route::middleware('auth')->group(function(){
-    Route::get('/admin/dashboard', function(){
-        return redirect()->route('voyager.dashboard');
-    })->name('admin.dashboard');
+Route::middleware(['auth','admin'])->group(function(){
+    Route::get('/admin', [AdminController::class, 'index'])->name('admin.dashboard');
+    Route::get('/admin/dashboard', [AdminController::class, 'index']);
+    // Admin profile routes
+    Route::get('/admin/profile', [ProfileController::class, 'show'])->name('admin.profile');
+    Route::put('/admin/profile', [ProfileController::class, 'updateProfile'])->name('admin.profile.update');
+    Route::put('/admin/profile/password', [ProfileController::class, 'updatePassword'])->name('admin.profile.password');
+    // Admin CRUD routes
+    Route::resource('/admin/education', EducationAdminController::class)
+        ->parameters(['education' => 'education'])->names('education');
+    Route::resource('/admin/skills', SkillAdminController::class)
+        ->parameters(['skills' => 'skill'])->names('skills');
+    Route::resource('/admin/projects', ProjectAdminController::class)
+        ->parameters(['projects' => 'project'])->names('projects');
+    Route::resource('/admin/experiences', ExperienceAdminController::class)
+        ->parameters(['experiences' => 'experience'])->names('experiences');
+    Route::resource('/admin/achievements', AchievementAdminController::class)
+        ->parameters(['achievements' => 'achievement'])->names('achievements');
+    Route::resource('/admin/infos', InfoAdminController::class)
+        ->parameters(['infos' => 'info'])->names('infos');
+    Route::resource('/admin/personal-details', PersonalDetailAdminController::class)
+        ->parameters(['personal-details' => 'personal_detail'])->names('personal_details');
 });
 
-Route::group(['prefix' => 'admin'], function () {
-    Voyager::routes();
+Route::middleware('auth')->group(function(){
+    Route::post('/logout', [AuthenticationController::class, 'logout'])->name('logout');
 });

@@ -26,6 +26,7 @@ class DatabaseSeeder extends Seeder
             // Register BREAD for portfolio tables and seed sample data
             PortfolioBreadSeeder::class,
             PortfolioSeeder::class,
+            AdminUserSeeder::class,
         ]);
     }
 }
