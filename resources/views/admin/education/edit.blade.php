@@ -4,50 +4,104 @@
 @endpush
 @section('main-Content')
 <header>
-  <div class="logo"><span>A</span>dmin</div>
-  <ul class="navlist">
-    <li><a href="{{ route('education.index') }}">Back</a></li>
-    <li><a href="{{ route('admin.profile') }}">Profile</a></li>
-    
-    <li>
-      <form method="POST" action="{{ route('logout') }}" style="display:inline">
-        @csrf
-        <button type="submit" class="btn" style="background:transparent;border:none;cursor:pointer">Logout</button>
-      </form>
-    </li>
-    <li>
-      <form method="POST" action="{{ route('logout') }}" style="display:inline">
-        @csrf
-        <button type="submit" class="btn" style="background:transparent;border:none;cursor:pointer">Logout</button>
-      </form>
-    </li>
-  </ul>
-  <div id="menu-icon" class="bi bi-list"></div>
-</header>
-<section class="contact" style="padding-top:40px;min-height:70vh">
-  <div class="main-text">
-    <span>Edit</span>
-    <h2>Education</h2>
+  <div class="logo"><span style="color:#12f7ff">A</span>dmin</div>
+  <div style="display:flex;align-items:center;gap:20px;">
+    <a href="{{ route('education.index') }}" id="back-btn" style="color:var(--text-color);font-weight:500;font-size:1rem;">Back</a>
+    <a href="{{ route('admin.profile') }}" id="profile-btn" style="color:var(--text-color);font-weight:500;font-size:1rem;">Profile</a>
+    <form method="POST" action="{{ route('logout') }}" style="display:inline">
+      @csrf
+      <button type="submit" id="logout-btn" style="background:none;border:none;cursor:pointer;color:var(--text-color);font-weight:500;font-size:1rem;">Logout</button>
+    </form>
   </div>
-  <div class="container" style="max-width:700px;margin:0 auto">
-    <form method="POST" action="{{ route('education.update', $education) }}" class="form" style="display:flex;flex-direction:column;gap:16px">
+  <div id="menu-icon" class="bi bi-list"></div>
+  
+  <style>
+    #back-btn, #profile-btn, #logout-btn {
+      transition: all 0.3s ease;
+    }
+    
+    #back-btn:hover, #profile-btn:hover, #logout-btn:hover {
+      color: var(--hover-color);
+      text-shadow: 0 0 10px rgba(18, 247, 255, 0.6),
+                  0 0 20px rgba(18, 247, 255, 0.6),
+                  0 0 30px rgba(18, 247, 255, 0.6),
+                  0 0 40px rgba(18, 247, 255, 0.6);
+    }
+  </style>
+</header>
+<section class="contact" style="padding-top:80px;min-height:70vh">
+  <div class="main-text">
+    <span>EDIT</span>
+    <h2 style="color:#12f7ff">Update Education</h2>
+  </div>
+  <div class="container" style="max-width:700px;margin:0 auto;background:rgba(41, 46, 51, 0.7);border-radius:10px;padding:30px;box-shadow:0 0 20px rgba(18, 247, 255, 0.2);border:1px solid rgba(18, 247, 255, 0.1)">
+    <form method="POST" action="{{ route('education.update', $education) }}" class="form" style="display:flex;flex-direction:column;gap:20px">
       @csrf
       @method('PUT')
-      <div class="input-box"><input name="type" placeholder="Type" value="{{ old('type', $education->type) }}" required></div>
-      <div class="input-box"><input name="name" placeholder="Program Name" value="{{ old('name', $education->name) }}" required></div>
-      <div class="input-box"><input name="institute" placeholder="Institute" value="{{ old('institute', $education->institute) }}" required></div>
-      <div class="input-box" style="display:flex;gap:12px">
-        <input name="enrolled_year" placeholder="Start Year" value="{{ old('enrolled_year', $education->enrolled_year) }}">
-        <input name="passing_year" placeholder="End Year" value="{{ old('passing_year', $education->passing_year) }}">
+      
+      <div class="form-group">
+        <label style="color:#12f7ff;font-size:14px;margin-bottom:5px;display:block">Education Type</label>
+        <input name="type" placeholder="E.g., Bachelor's, Master's, Certificate" value="{{ old('type', $education->type) }}" required style="width:100%;padding:12px;background:rgba(255,255,255,0.05);color:#fff;border:1px solid rgba(18, 247, 255, 0.3);border-radius:5px;font-size:15px;transition:all 0.3s">
       </div>
-      <div class="input-box"><input name="grade" placeholder="Grade (optional)" value="{{ old('grade', $education->grade) }}"></div>
+      
+      <div class="form-group">
+        <label style="color:#12f7ff;font-size:14px;margin-bottom:5px;display:block">Program Name</label>
+        <input name="name" placeholder="E.g., Computer Science, MBA" value="{{ old('name', $education->name) }}" required style="width:100%;padding:12px;background:rgba(255,255,255,0.05);color:#fff;border:1px solid rgba(18, 247, 255, 0.3);border-radius:5px;font-size:15px;transition:all 0.3s">
+      </div>
+      
+      <div class="form-group">
+        <label style="color:#12f7ff;font-size:14px;margin-bottom:5px;display:block">Institute Name</label>
+        <input name="institute" placeholder="Enter institute name" value="{{ old('institute', $education->institute) }}" required style="width:100%;padding:12px;background:rgba(255,255,255,0.05);color:#fff;border:1px solid rgba(18, 247, 255, 0.3);border-radius:5px;font-size:15px;transition:all 0.3s">
+      </div>
+      
+      <div style="display:flex;gap:20px;flex-wrap:wrap">
+        <div class="form-group" style="flex:1;min-width:140px">
+          <label style="color:#12f7ff;font-size:14px;margin-bottom:5px;display:block">Start Year</label>
+          <input name="enrolled_year" placeholder="E.g., 2018" value="{{ old('enrolled_year', $education->enrolled_year) }}" style="width:100%;padding:12px;background:rgba(255,255,255,0.05);color:#fff;border:1px solid rgba(18, 247, 255, 0.3);border-radius:5px;font-size:15px;transition:all 0.3s">
+        </div>
+        
+        <div class="form-group" style="flex:1;min-width:140px">
+          <label style="color:#12f7ff;font-size:14px;margin-bottom:5px;display:block">End Year</label>
+          <input name="passing_year" placeholder="E.g., 2022" value="{{ old('passing_year', $education->passing_year) }}" style="width:100%;padding:12px;background:rgba(255,255,255,0.05);color:#fff;border:1px solid rgba(18, 247, 255, 0.3);border-radius:5px;font-size:15px;transition:all 0.3s">
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label style="color:#12f7ff;font-size:14px;margin-bottom:5px;display:block">Grade (Optional)</label>
+        <input name="grade" placeholder="E.g., 3.8 GPA, First Class" value="{{ old('grade', $education->grade) }}" style="width:100%;padding:12px;background:rgba(255,255,255,0.05);color:#fff;border:1px solid rgba(18, 247, 255, 0.3);border-radius:5px;font-size:15px;transition:all 0.3s">
+      </div>
+      
       @if ($errors->any())
-      <div style="color:#ff6b6b">{{ $errors->first() }}</div>
-      @endif
-      <div class="btn-box" style="width:100%;justify-content:center;gap:16px">
-        <button class="btn" type="submit" style="width:180px">Update</button>
-        <a class="btn" href="{{ route('education.index') }}" style="--bg-color:#1f1f1f;width:180px">Cancel</a>
+      <div style="color:#ff6b6b;background:rgba(255,107,107,0.1);padding:10px;border-radius:5px;border-left:3px solid #ff6b6b">
+        <strong>Error:</strong> {{ $errors->first() }}
       </div>
+      @endif
+      
+      <div style="display:flex;gap:15px;margin-top:15px;justify-content:center">
+        <button type="submit" style="padding:12px 30px;background:#12f7ff;color:#250821;border:none;border-radius:5px;font-weight:600;cursor:pointer;box-shadow:0 0 10px rgba(18, 247, 255, 0.5);transition:all 0.3s;min-width:140px">Update</button>
+        <a href="{{ route('education.index') }}" style="padding:12px 30px;background:transparent;color:#12f7ff;border:1px solid #12f7ff;border-radius:5px;font-weight:600;cursor:pointer;text-align:center;text-decoration:none;transition:all 0.3s;min-width:140px">Cancel</a>
+      </div>
+    </form>
+    
+    <style>
+      .form-group input:focus, .form-group textarea:focus {
+        border-color: #12f7ff;
+        box-shadow: 0 0 0 2px rgba(18, 247, 255, 0.2);
+        outline: none;
+      }
+      
+      button[type="submit"]:hover {
+        background: #00e6ff;
+        transform: translateY(-2px);
+        box-shadow: 0 0 15px rgba(18, 247, 255, 0.7);
+      }
+      
+      a:hover {
+        background: rgba(18, 247, 255, 0.1);
+        transform: translateY(-2px);
+        box-shadow: 0 0 10px rgba(18, 247, 255, 0.3);
+      }
+    </style>
     </form>
   </div>
 </section>

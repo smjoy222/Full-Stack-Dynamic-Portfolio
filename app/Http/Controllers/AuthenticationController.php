@@ -31,33 +31,6 @@ class AuthenticationController extends Controller
         }
     }
 
-    function register(Request $request)
-    {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:8|confirmed',
-        ]);
-
-        // Get the 'user' role (or create if it doesn't exist)
-        $userRole = \TCG\Voyager\Models\Role::where('name', 'user')->first();
-        if (!$userRole) {
-            $userRole = \TCG\Voyager\Models\Role::create(['name' => 'user', 'display_name' => 'User']);
-        }
-
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'role_id' => $userRole->id, // Assign default user role
-        ]);
-
-        // Auto login after registration
-        Auth::login($user);
-
-        return redirect()->route('admin.dashboard')->with('success', 'Registration successful!');
-    }
-
     function logout(Request $request)
     {
         Auth::logout();

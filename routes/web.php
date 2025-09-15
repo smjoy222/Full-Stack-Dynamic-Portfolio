@@ -41,13 +41,7 @@ Route::get('/login', function () {
     return view('auth.login');
 })->name('login');
 
-Route::get('/register', function () {
-    return view('auth.register');
-});
-
 Route::post('/login', [AuthenticationController::class, 'login'])->name('login.attempt');
-
-Route::post('/register', [AuthenticationController::class, 'register']);
 
 Route::middleware(['auth','admin'])->group(function(){
     Route::get('/admin', [AdminController::class, 'index'])->name('admin.dashboard');

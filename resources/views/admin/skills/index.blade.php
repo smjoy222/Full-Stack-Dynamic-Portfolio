@@ -5,26 +5,67 @@
 @section('main-Content')
 <header>
   <div class="logo"><span>A</span>dmin</div>
-  <ul class="navlist">
-    <li><a href="/admin">Dashboard</a></li>
-    <li><a href="{{ route('admin.profile') }}">Profile</a></li>
-    <li>
-      <form method="POST" action="{{ route('logout') }}" style="display:inline">
-        @csrf
-        <button type="submit" class="read" style="background:none;border:1px solid var(--hover-color);padding:8px 16px;color:var(--hover-color);border-radius:8px;cursor:pointer">Logout</button>
-      </form>
-    </li>
-  </ul>
+  <div style="display:flex;align-items:center;gap:20px;">
+    <a href="/admin" id="dashboard-btn" style="color:var(--text-color);font-weight:500;font-size:1rem;">Dashboard</a>
+    <a href="{{ route('admin.profile') }}" id="profile-btn" style="color:var(--text-color);font-weight:500;font-size:1rem;">Profile</a>
+    <form method="POST" action="{{ route('logout') }}" style="display:inline">
+      @csrf
+      <button type="submit" id="logout-btn" style="background:none;border:none;cursor:pointer;color:var(--text-color);font-weight:500;font-size:1rem;">Logout</button>
+    </form>
+  </div>
   <div id="menu-icon" class="bi bi-list"></div>
+  
+  <style>
+    #dashboard-btn, #profile-btn, #logout-btn {
+      transition: all 0.3s ease;
+    }
+    
+    #dashboard-btn:hover, #profile-btn:hover, #logout-btn:hover {
+      color: var(--hover-color);
+      text-shadow: 0 0 10px rgba(18, 247, 255, 0.6),
+                  0 0 20px rgba(18, 247, 255, 0.6),
+                  0 0 30px rgba(18, 247, 255, 0.6),
+                  0 0 40px rgba(18, 247, 255, 0.6);
+    }
+  </style>
 </header>
 <section class="services" id="skills" style="padding-top:40px;min-height:70vh">
   <div class="main-text">
-    <span>Manage</span>
-    <h2>Skills</h2>
+    <span>MANAGE</span>
+    <h2 style="color:#12f7ff">Skills</h2>
   </div>
   <div style="margin: 0 auto; max-width: 1000px; display:flex; justify-content: flex-end;">
-    <a href="{{ route('skills.create') }}" class="btn">Add Skill</a>
+    <a href="{{ route('skills.create') }}" class="add-button">
+      <i class="bi bi-plus-lg"></i> Add Skill
+    </a>
   </div>
+  
+  <style>
+    .add-button {
+      background: #12f7ff;
+      color: #250821;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-weight: 600;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 15px rgba(18, 247, 255, 0.4);
+      margin-bottom: 20px;
+    }
+    
+    .add-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 0 20px rgba(18, 247, 255, 0.6);
+      background: #00e6ff;
+    }
+    
+    .add-button i {
+      font-size: 1.2rem;
+    }
+  </style>
   <div class="section-services" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:20px;max-width:1000px;margin:20px auto">
     @foreach($items as $item)
     <div class="service-box">
