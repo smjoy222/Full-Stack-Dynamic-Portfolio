@@ -4,7 +4,7 @@
 @endpush
 @section('main-Content')
 <header>
-  <div class="logo"><span style="color:#12f7ff">A</span>dmin</div>
+  <a href="{{ route('admin.dashboard') }}" style="text-decoration:none;"><div class="logo"><span style="color:#12f7ff">A</span><span style="color:white">dmin</span></div></a>
   <div style="display:flex;align-items:center;gap:20px;">
     <a href="{{ route('experiences.index') }}" id="back-btn" style="color:var(--text-color);font-weight:500;font-size:1rem;">Back</a>
     <a href="{{ route('admin.profile') }}" id="profile-btn" style="color:var(--text-color);font-weight:500;font-size:1rem;">Profile</a>
