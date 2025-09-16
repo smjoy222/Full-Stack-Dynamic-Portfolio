@@ -10,6 +10,8 @@
         <li><a href="/">Home</a></li>
         <li><a href="#skills" class="scroll-link">Skills</a></li>
         <li><a href="/edu">Education</a></li>
+        <li><a href="/experience">Experience</a></li>
+        <li><a href="/achievement">Achievement</a></li>
         <li><a href="/project">Project</a></li>
         <li><a href="/about">About</a></li>
     </ul>
