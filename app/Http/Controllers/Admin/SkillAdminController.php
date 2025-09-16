@@ -11,8 +11,15 @@ class SkillAdminController extends Controller
 {
     public function index()
     {
-        $ownerId = (int) config('portfolio.owner_user_id', 3);
-        $items = Skill::where('user_id', $ownerId)->latest()->paginate(12);
+        // Use the authenticated user's ID if available
+        $userId = auth()->id();
+        if (!$userId) {
+            // If not authenticated, get the first user as a fallback
+            $firstUser = \App\Models\User::first();
+            $userId = $firstUser ? $firstUser->id : 1;
+        }
+        
+        $items = Skill::where('user_id', $userId)->latest()->paginate(12);
         return view('admin.skills.index', compact('items'));
     }
 
@@ -25,11 +32,19 @@ class SkillAdminController extends Controller
     {
         $data = $request->validate([
             'name' => 'required|string|max:255',
-            'type' => 'required|in:technical,soft',
+            'type' => 'required|in:technical,professional',
             'level' => 'required|integer|min:0|max:100',
             'logo' => 'nullable|image|max:2048',
         ]);
-        $data['user_id'] = (int) config('portfolio.owner_user_id', 3);
+        
+        // Use the authenticated user's ID if available, fallback to the first user in DB
+        $userId = auth()->id();
+        if (!$userId) {
+            $firstUser = \App\Models\User::first();
+            $userId = $firstUser ? $firstUser->id : 1;
+        }
+        $data['user_id'] = $userId;
+        
         if ($request->hasFile('logo')) {
             $data['logo'] = $request->file('logo')->store('skills', 'public');
         }
@@ -46,7 +61,7 @@ class SkillAdminController extends Controller
     {
         $data = $request->validate([
             'name' => 'required|string|max:255',
-            'type' => 'required|in:technical,soft',
+            'type' => 'required|in:technical,professional',
             'level' => 'required|integer|min:0|max:100',
             'logo' => 'nullable|image|max:2048',
         ]);

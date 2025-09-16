@@ -48,14 +48,38 @@
         <label style="color:#12f7ff;font-size:14px;margin-bottom:5px;display:block">Skill Type</label>
         <select name="type" required style="width:100%;padding:12px;background:rgba(255,255,255,0.05);color:#fff;border:1px solid rgba(18, 247, 255, 0.3);border-radius:5px;font-size:15px;transition:all 0.3s">
           <option value="technical" @selected(old('type', $skill->type)==='technical')>Technical</option>
-          <option value="soft" @selected(old('type', $skill->type)==='soft')>Soft</option>
+          <option value="professional" @selected(old('type', $skill->type)==='professional')>Professional</option>
         </select>
       </div>
       
       <div class="form-group">
-        <label style="color:#12f7ff;font-size:14px;margin-bottom:5px;display:block">Skill Level (0-100%)</label>
-        <input type="number" name="level" min="0" max="100" placeholder="Enter proficiency level" value="{{ old('level', $skill->level) }}" required style="width:100%;padding:12px;background:rgba(255,255,255,0.05);color:#fff;border:1px solid rgba(18, 247, 255, 0.3);border-radius:5px;font-size:15px;transition:all 0.3s">
+        <label style="color:#12f7ff;font-size:14px;margin-bottom:5px;display:block">Skill Level (%)</label>
+        <input type="number" name="level" min="0" max="100" placeholder="Enter proficiency level (0-100%)" value="{{ old('level', $skill->level) }}" required style="width:100%;padding:12px;background:rgba(255,255,255,0.05);color:#fff;border:1px solid rgba(18, 247, 255, 0.3);border-radius:5px;font-size:15px;transition:all 0.3s">
+        <div class="level-preview">
+          <div class="preview-container" style="margin-top:15px;width:100%;height:10px;background:rgba(255,255,255,0.1);border-radius:5px;overflow:hidden;position:relative;">
+            <div class="preview-bar" id="levelPreview" style="height:100%;width:{{ old('level', $skill->level) }}%;background:linear-gradient(90deg, #12f7ff, #06c4cc);border-radius:5px;transition:width 0.3s ease;"></div>
+          </div>
+          <div style="margin-top:5px;display:flex;justify-content:space-between;">
+            <span style="font-size:12px;color:#aaa;">0%</span>
+            <span style="font-size:12px;color:#aaa;" id="levelValue">{{ old('level', $skill->level) }}%</span>
+            <span style="font-size:12px;color:#aaa;">100%</span>
+          </div>
+        </div>
       </div>
+      
+      <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          const levelInput = document.querySelector('input[name="level"]');
+          const levelPreview = document.getElementById('levelPreview');
+          const levelValue = document.getElementById('levelValue');
+          
+          levelInput.addEventListener('input', function() {
+            const value = this.value;
+            levelPreview.style.width = value + '%';
+            levelValue.textContent = value + '%';
+          });
+        });
+      </script>
       
       <div class="form-group">
         <label style="color:#12f7ff;font-size:14px;margin-bottom:5px;display:block">Skill Logo</label>

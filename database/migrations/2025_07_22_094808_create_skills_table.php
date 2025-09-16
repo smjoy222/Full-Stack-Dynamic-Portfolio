@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('name');
-            $table->enum('type', ['technical', 'soft']);
-            $table->enum('level', ['beginner', 'intermediate', 'expert']);
+            $table->enum('type', ['technical', 'professional']);
+            $table->integer('level')->default(0);
             $table->string('logo')->nullable();
             $table->timestamps();
         });

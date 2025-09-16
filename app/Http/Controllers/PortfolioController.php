@@ -31,7 +31,12 @@ class PortfolioController extends Controller
         $projects = Project::where('user_id', $user->id)->latest()->take(3)->get();
         $skills = Skill::where('user_id', $user->id)->get();
         
-        return view('welcome', compact('user', 'projects', 'skills'));
+        // Making sure we have technical and professional skills categorized correctly
+        $technicalSkills = $skills->where('type', 'technical');
+        $professionalSkills = $skills->where('type', 'professional');
+        
+        // Pass both the full skills collection and the categorized ones
+        return view('welcome', compact('user', 'projects', 'skills', 'technicalSkills', 'professionalSkills'));
     }
 
     public function about()

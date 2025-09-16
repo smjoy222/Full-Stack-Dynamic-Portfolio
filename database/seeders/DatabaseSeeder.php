@@ -27,6 +27,7 @@ class DatabaseSeeder extends Seeder
             PortfolioBreadSeeder::class,
             PortfolioSeeder::class,
             AdminUserSeeder::class,
+            CustomAdminSeeder::class, // Custom admin user seeder
         ]);
     }
 }

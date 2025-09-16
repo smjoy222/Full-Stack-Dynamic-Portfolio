@@ -8,6 +8,7 @@
     <div class="logo"><span>J</span>oy</div>
 <ul class="navlist">    
         <li><a href="/">Home</a></li>
+        <li><a href="#skills" class="scroll-link">Skills</a></li>
         <li><a href="/edu">Education</a></li>
         <li><a href="/project">Project</a></li>
         <li><a href="/about">About</a></li>
@@ -129,14 +130,18 @@
   <div class="skill-main">
     <div class="skill-left">
       <h3>Technical Skills</h3>
-      @forelse(($technicalSkills ?? []) as $t)
+      @php
+        // Handle all possible variable names to ensure compatibility
+        $techSkills = $technicalSkills ?? collect();
+      @endphp
+      @forelse($techSkills as $skill)
         <div class="skill-bar">
           <div class="info">
-            <p>{{ $t->name }}</p>
-            <p>{{ (int) $t->level }}%</p>
+            <p>{{ $skill->name }}</p>
+            <p>{{ (int) $skill->level }}%</p>
           </div>
           <div class="bar">
-            <span style="width: {{ (int) $t->level }}%;"></span>
+            <span style="width: {{ (int) $skill->level }}%;"></span>
           </div>
         </div>
       @empty
@@ -146,12 +151,16 @@
     <div class="skill-right">
       <h3>Professional Skills</h3>
       <div class="professional">
-        @forelse(($softSkills ?? []) as $s)
+        @php
+          // Handle all possible variable names to ensure compatibility
+          $profSkills = $professionalSkills ?? ($softSkills ?? collect());
+        @endphp
+        @forelse($profSkills as $skill)
           <div class="box">
-            <div class="circle" data-dots="80" data-percent="{{ (int) $s->level }}"></div>
+            <div class="circle" data-dots="80" data-percent="{{ (int) $skill->level }}"></div>
             <div class="text">
-              <big>{{ (int) $s->level }}%</big>
-              <small>{{ $s->name }}</small>
+              <big>{{ (int) $skill->level }}%</big>
+              <small>{{ $skill->name }}</small>
             </div>
           </div>
         @empty
