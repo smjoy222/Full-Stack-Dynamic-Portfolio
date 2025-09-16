@@ -23,7 +23,7 @@ class ExperienceAdminController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'type' => 'nullable|string|max:100',
+            'type' => 'required|in:job,internship,freelance,volunteer',
             'designation' => 'required|string|max:255',
             'organization' => 'required|string|max:255',
             'from_date' => 'required|date',
@@ -42,7 +42,7 @@ class ExperienceAdminController extends Controller
     public function update(Request $request, Experience $experience)
     {
         $data = $request->validate([
-            'type' => 'nullable|string|max:100',
+            'type' => 'required|in:job,internship,freelance,volunteer',
             'designation' => 'required|string|max:255',
             'organization' => 'required|string|max:255',
             'from_date' => 'required|date',

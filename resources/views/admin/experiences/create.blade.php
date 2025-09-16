@@ -50,7 +50,12 @@
       
       <div class="form-group">
         <label style="color:#12f7ff;font-size:14px;margin-bottom:5px;display:block">Type</label>
-        <input name="type" placeholder="Full-time, Part-time, Intern, etc." value="{{ old('type') }}" style="width:100%;padding:12px;background:rgba(255,255,255,0.05);color:#fff;border:1px solid rgba(18, 247, 255, 0.3);border-radius:5px;font-size:15px;transition:all 0.3s">
+        <select name="type" style="width:100%;padding:12px;background:rgba(255,255,255,0.05);color:#fff;border:1px solid rgba(18, 247, 255, 0.3);border-radius:5px;font-size:15px;transition:all 0.3s">
+          <option value="job" {{ old('type') == 'job' ? 'selected' : '' }}>Job</option>
+          <option value="internship" {{ old('type') == 'internship' ? 'selected' : '' }}>Internship</option>
+          <option value="freelance" {{ old('type') == 'freelance' ? 'selected' : '' }}>Freelance</option>
+          <option value="volunteer" {{ old('type') == 'volunteer' ? 'selected' : '' }}>Volunteer</option>
+        </select>
       </div>
       
       <div style="display:flex;gap:20px">

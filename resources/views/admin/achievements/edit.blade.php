@@ -52,12 +52,20 @@
       <div style="display:flex;gap:20px;flex-wrap:wrap">
         <div class="form-group" style="flex:1;min-width:200px">
           <label style="color:#12f7ff;font-size:14px;margin-bottom:5px;display:block">Type</label>
-          <input name="type" placeholder="Enter achievement type" value="{{ old('type', $achievement->type) }}" style="width:100%;padding:12px;background:rgba(255,255,255,0.05);color:#fff;border:1px solid rgba(18, 247, 255, 0.3);border-radius:5px;font-size:15px;transition:all 0.3s">
+          <select name="type" required style="width:100%;padding:12px;background:rgba(255,255,255,0.05);color:#fff;border:1px solid rgba(18, 247, 255, 0.3);border-radius:5px;font-size:15px;transition:all 0.3s">
+            <option value="award" {{ old('type', $achievement->type) == 'award' ? 'selected' : '' }}>Award</option>
+            <option value="certification" {{ old('type', $achievement->type) == 'certification' ? 'selected' : '' }}>Certification</option>
+            <option value="recognition" {{ old('type', $achievement->type) == 'recognition' ? 'selected' : '' }}>Recognition</option>
+          </select>
         </div>
         
         <div class="form-group" style="flex:1;min-width:200px">
           <label style="color:#12f7ff;font-size:14px;margin-bottom:5px;display:block">Category</label>
-          <input name="category" placeholder="Enter achievement category" value="{{ old('category', $achievement->category) }}" style="width:100%;padding:12px;background:rgba(255,255,255,0.05);color:#fff;border:1px solid rgba(18, 247, 255, 0.3);border-radius:5px;font-size:15px;transition:all 0.3s">
+          <select name="category" required style="width:100%;padding:12px;background:rgba(255,255,255,0.05);color:#fff;border:1px solid rgba(18, 247, 255, 0.3);border-radius:5px;font-size:15px;transition:all 0.3s">
+            <option value="academic" {{ old('category', $achievement->category) == 'academic' ? 'selected' : '' }}>Academic</option>
+            <option value="professional" {{ old('category', $achievement->category) == 'professional' ? 'selected' : '' }}>Professional</option>
+            <option value="other" {{ old('category', $achievement->category) == 'other' ? 'selected' : '' }}>Other</option>
+          </select>
         </div>
       </div>
       

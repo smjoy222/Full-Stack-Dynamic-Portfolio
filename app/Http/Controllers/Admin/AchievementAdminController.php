@@ -25,11 +25,11 @@ class AchievementAdminController extends Controller
     {
         $data = $request->validate([
             'name' => 'required|string|max:255',
-            'type' => 'nullable|string|max:100',
+            'type' => 'required|string|in:award,certification,recognition',
             'certification' => 'nullable|string|max:255',
-            'organization' => 'nullable|string|max:255',
-            'date' => 'nullable|date',
-            'category' => 'nullable|string|max:100',
+            'organization' => 'required|string|max:255',
+            'date' => 'required|date',
+            'category' => 'required|string|in:academic,professional,other',
             'images.*' => 'image|max:4096',
         ]);
         $data['user_id'] = (int) config('portfolio.owner_user_id', 3);
@@ -53,11 +53,11 @@ class AchievementAdminController extends Controller
     {
         $data = $request->validate([
             'name' => 'required|string|max:255',
-            'type' => 'nullable|string|max:100',
+            'type' => 'required|string|in:award,certification,recognition',
             'certification' => 'nullable|string|max:255',
-            'organization' => 'nullable|string|max:255',
-            'date' => 'nullable|date',
-            'category' => 'nullable|string|max:100',
+            'organization' => 'required|string|max:255',
+            'date' => 'required|date',
+            'category' => 'required|string|in:academic,professional,other',
             'images.*' => 'image|max:4096',
         ]);
         if ($request->hasFile('images')) {

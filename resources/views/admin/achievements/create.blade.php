@@ -50,7 +50,11 @@
       
       <div class="form-group">
         <label style="color:#12f7ff;font-size:14px;margin-bottom:5px;display:block">Type</label>
-        <input name="type" placeholder="Enter achievement type" value="{{ old('type') }}" style="width:100%;padding:12px;background:rgba(255,255,255,0.05);color:#fff;border:1px solid rgba(18, 247, 255, 0.3);border-radius:5px;font-size:15px;transition:all 0.3s">
+        <select name="type" required style="width:100%;padding:12px;background:rgba(255,255,255,0.05);color:#fff;border:1px solid rgba(18, 247, 255, 0.3);border-radius:5px;font-size:15px;transition:all 0.3s">
+          <option value="award" {{ old('type') == 'award' ? 'selected' : '' }}>Award</option>
+          <option value="certification" {{ old('type') == 'certification' ? 'selected' : '' }}>Certification</option>
+          <option value="recognition" {{ old('type') == 'recognition' ? 'selected' : '' }}>Recognition</option>
+        </select>
       </div>
       
       <div class="form-group">
@@ -60,12 +64,16 @@
       
       <div class="form-group">
         <label style="color:#12f7ff;font-size:14px;margin-bottom:5px;display:block">Date</label>
-        <input type="date" name="date" value="{{ old('date') }}" style="width:100%;padding:12px;background:rgba(255,255,255,0.05);color:#fff;border:1px solid rgba(18, 247, 255, 0.3);border-radius:5px;font-size:15px;transition:all 0.3s">
+        <input type="date" name="date" value="{{ old('date') }}" required style="width:100%;padding:12px;background:rgba(255,255,255,0.05);color:#fff;border:1px solid rgba(18, 247, 255, 0.3);border-radius:5px;font-size:15px;transition:all 0.3s">
       </div>
       
       <div class="form-group">
         <label style="color:#12f7ff;font-size:14px;margin-bottom:5px;display:block">Category</label>
-        <input name="category" placeholder="Enter category" value="{{ old('category') }}" style="width:100%;padding:12px;background:rgba(255,255,255,0.05);color:#fff;border:1px solid rgba(18, 247, 255, 0.3);border-radius:5px;font-size:15px;transition:all 0.3s">
+        <select name="category" required style="width:100%;padding:12px;background:rgba(255,255,255,0.05);color:#fff;border:1px solid rgba(18, 247, 255, 0.3);border-radius:5px;font-size:15px;transition:all 0.3s">
+          <option value="academic" {{ old('category') == 'academic' ? 'selected' : '' }}>Academic</option>
+          <option value="professional" {{ old('category') == 'professional' ? 'selected' : '' }}>Professional</option>
+          <option value="other" {{ old('category') == 'other' ? 'selected' : '' }}>Other</option>
+        </select>
       </div>
       
       <div class="form-group">
