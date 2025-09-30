@@ -1,4 +1,7 @@
 @extends('index')
+@php
+    use Illuminate\Support\Str;
+@endphp
 @push('style')
     <title>Achievements</title>
 @endpush
@@ -45,21 +48,23 @@
         <div class="achievements-grid">
             @forelse(($achievements ?? []) as $achievement)
                 <div class="achievement-card">
-                    <div class="achievement-icon">
-                        @if($achievement->type == 'award')
-                            <i class="bi bi-trophy"></i>
-                        @elseif($achievement->type == 'certification')
-                            <i class="bi bi-patch-check"></i>
-                        @elseif($achievement->type == 'publication')
-                            <i class="bi bi-journal-text"></i>
-                        @elseif($achievement->type == 'presentation')
-                            <i class="bi bi-easel"></i>
-                        @else
-                            <i class="bi bi-star"></i>
-                        @endif
+                    <div class="achievement-header">
+                        <div class="achievement-icon">
+                            @if($achievement->type == 'award')
+                                <i class="bi bi-trophy"></i>
+                            @elseif($achievement->type == 'certification')
+                                <i class="bi bi-patch-check"></i>
+                            @elseif($achievement->type == 'publication')
+                                <i class="bi bi-journal-text"></i>
+                            @elseif($achievement->type == 'presentation')
+                                <i class="bi bi-easel"></i>
+                            @else
+                                <i class="bi bi-star"></i>
+                            @endif
+                        </div>
+                        <h3 class="achievement-title">{{ $achievement->title }}</h3>
                     </div>
                     <div class="achievement-details">
-                        <h3>{{ $achievement->title }}</h3>
                         <div class="achievement-meta">
                             @if($achievement->date)
                                 <span class="achievement-date">
@@ -75,6 +80,25 @@
                             @endif
                         </div>
                         <p>{{ $achievement->description }}</p>
+                        
+                        @if(!empty($achievement->images) && is_array($achievement->images))
+                            <div class="achievement-images">
+                                @foreach($achievement->images as $image)
+                                    @if(!empty($image))
+                                        @php
+                                            // Check if image path already has storage/ prefix
+                                            $imagePath = Str::startsWith($image, 'storage/') 
+                                                ? $image 
+                                                : (Str::startsWith($image, '/') ? 'storage' . $image : 'storage/' . $image);
+                                        @endphp
+                                        <div class="image-wrapper">
+                                            <img src="{{ asset($imagePath) }}" alt="{{ $achievement->title }}" class="achievement-image" onerror="this.style.display='none'" onclick="openImageModal(this.src, '{{ $achievement->title }}')">
+                                        </div>
+                                    @endif
+                                @endforeach
+                            </div>
+                        @endif
+                        
                         @if($achievement->url)
                             <a href="{{ $achievement->url }}" class="view-link" target="_blank" rel="noopener noreferrer">
                                 <span>View</span>
@@ -96,6 +120,13 @@
                 </div>
             @endforelse
         </div>
+    </div>
+
+    <!-- Image Modal -->
+    <div id="imageModal" class="image-modal">
+        <span class="modal-close">&times;</span>
+        <img class="modal-content" id="modalImage">
+        <div id="modalCaption"></div>
     </div>
 
     <style>
@@ -245,62 +276,97 @@
             padding: 25px;
             display: flex;
             flex-direction: column;
+            gap: 20px;
             position: relative;
             overflow: hidden;
             box-shadow: 0 0 15px rgba(18, 247, 255, 0.3);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
             opacity: 0;
-            animation: fadeInUp 0.8s forwards;
-            animation-delay: calc(var(--i, 0) * 0.15s);
+            animation: cardAppear 0.5s ease-out forwards;
+            animation-delay: calc(var(--index, 0) * 0.1s);
         }
         
-        .achievement-card:nth-child(1) { --i: 1; }
-        .achievement-card:nth-child(2) { --i: 2; }
-        .achievement-card:nth-child(3) { --i: 3; }
-        .achievement-card:nth-child(4) { --i: 4; }
-        .achievement-card:nth-child(5) { --i: 5; }
-        .achievement-card:nth-child(6) { --i: 6; }
-        .achievement-card:nth-child(7) { --i: 7; }
-        .achievement-card:nth-child(8) { --i: 8; }
+        .achievement-card:nth-child(1) { --index: 1; }
+        .achievement-card:nth-child(2) { --index: 2; }
+        .achievement-card:nth-child(3) { --index: 3; }
+        .achievement-card:nth-child(4) { --index: 4; }
+        .achievement-card:nth-child(5) { --index: 5; }
+        .achievement-card:nth-child(6) { --index: 6; }
+        .achievement-card:nth-child(7) { --index: 7; }
+        .achievement-card:nth-child(8) { --index: 8; }
+        
+        @keyframes cardAppear {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
         .achievement-card::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
-            width: 4px;
+            width: 100%;
             height: 100%;
-            background: var(--hover-color);
-            box-shadow: 0 0 15px var(--hover-color);
-            transition: width 0.4s ease;
-            z-index: 0;
+            background: linear-gradient(135deg, transparent 0%, rgba(18, 247, 255, 0.1) 100%);
+            z-index: -1;
+            transition: all 0.3s ease;
+            opacity: 0;
         }
 
         .achievement-card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 5px 25px rgba(18, 247, 255, 0.4);
-            border-color: rgba(18, 247, 255, 1);
+            box-shadow: 0 15px 25px rgba(18, 247, 255, 0.4);
+            background: linear-gradient(135deg, rgba(18, 20, 26, 0.9) 0%, rgba(18, 247, 255, 0.15) 100%);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease, background 0.3s ease;
         }
 
         .achievement-card:hover::before {
+            opacity: 1;
+        }
+        
+        .achievement-card:hover .achievement-title::after {
             width: 100%;
-            opacity: 0.1;
+            transition: width 0.3s ease;
         }
 
+        .achievement-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 10px;
+        }
+        
         .achievement-icon {
-            width: 80px;
-            height: 80px;
+            flex: 0 0 60px;
+            height: 60px;
             border-radius: 50%;
-            background: rgba(18, 20, 26, 0.8);
-            border: 2px solid var(--hover-color);
+            background: rgba(18, 247, 255, 0.1);
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 1.5rem;
+            font-size: 24px;
+            color: var(--hover-color);
+            border: 2px solid rgba(18, 247, 255, 0.2);
             box-shadow: 0 0 15px rgba(18, 247, 255, 0.3);
             position: relative;
             z-index: 1;
+            transition: all 0.3s ease;
+        }
+        
+        .achievement-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--hover-color);
+            margin-bottom: 0;
+            position: relative;
+            display: inline-block;
         }
         
         .achievement-icon::before {
@@ -339,54 +405,97 @@
             flex: 1;
             position: relative;
             z-index: 1;
+            background: rgba(18, 20, 26, 0.5);
+            border-radius: 10px;
+            padding: 15px;
+            border: 1px solid rgba(18, 247, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .achievement-card:hover .achievement-details {
+            background: rgba(18, 20, 26, 0.7);
+            border: 1px solid rgba(18, 247, 255, 0.3);
+            box-shadow: 0 5px 15px rgba(18, 247, 255, 0.15);
         }
 
-        .achievement-details h3 {
-            font-size: 1.4rem;
-            margin-bottom: 1rem;
-            color: white;
+        .achievement-title {
+            font-size: 20px;
             font-weight: 700;
-            letter-spacing: 0.5px;
+            color: var(--hover-color);
+            margin-bottom: 0;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .achievement-title::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -5px;
+            height: 2px;
+            width: 50px;
+            background: linear-gradient(to right, var(--hover-color), transparent);
+            transition: width 0.3s ease;
         }
 
         .achievement-meta {
             display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-            margin-bottom: 1.2rem;
-            background: rgba(18, 247, 255, 0.05);
-            border-radius: 10px;
-            padding: 10px 15px;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 15px;
+            background: rgba(18, 20, 26, 0.3);
+            border-radius: 8px;
+            padding: 10px;
+            border: 1px solid rgba(18, 247, 255, 0.05);
         }
 
         .achievement-date, .achievement-issuer {
             display: flex;
             align-items: center;
             gap: 8px;
-            color: var(--hover-color);
-            font-size: 0.95rem;
-            letter-spacing: 0.5px;
+            color: var(--text-color);
+            font-size: 14px;
+            padding: 5px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+        
+        .achievement-card:hover .achievement-date,
+        .achievement-card:hover .achievement-issuer {
+            background: rgba(18, 247, 255, 0.05);
         }
         
         .achievement-date i, .achievement-issuer i {
-            font-size: 1.1rem;
+            color: var(--hover-color);
+            font-size: 14px;
         }
 
         .achievement-details p {
-            color: #d5d5d5;
-            margin-bottom: 2rem;
-            line-height: 1.7;
-            font-size: 1rem;
+            color: var(--text-color);
+            margin-bottom: 20px;
+            line-height: 1.6;
+            font-size: 15px;
+            padding: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .achievement-card:hover .achievement-details p {
+            color: var(--text-color);
         }
 
         .view-link {
             display: inline-flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
             color: var(--hover-color);
             text-decoration: none;
-            font-weight: 600;
-            font-size: 0.95rem;
+            font-weight: 500;
+            font-size: 14px;
+            background: rgba(18, 247, 255, 0.1);
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: 1px solid rgba(18, 247, 255, 0.2);
+            transition: all 0.3s ease;
             transition: all 0.3s ease;
             margin-top: auto;
             padding: 8px 15px;
@@ -398,6 +507,181 @@
         .view-link:hover {
             transform: translateX(5px);
             box-shadow: 0 0 15px rgba(18, 247, 255, 0.3);
+            background: rgba(18, 247, 255, 0.15);
+            color: var(--hover-color);
+            text-shadow: 0 0 5px rgba(18, 247, 255, 0.5);
+        }
+        
+        /* Achievement Images Styling */
+        .achievement-images {
+            margin: 15px 0 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            justify-content: center;
+            position: relative;
+            background: transparent;
+            border: none;
+        }
+        
+        .image-wrapper {
+            overflow: hidden;
+            border-radius: 8px;
+            width: 100%;
+            max-width: 300px;
+            background: rgba(18, 20, 26, 0.5);
+            transition: all 0.3s ease;
+        }
+        
+        .achievement-image {
+            width: 100%;
+            height: auto;
+            max-height: 200px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            object-fit: cover;
+            display: block;
+        }
+        
+        .image-wrapper:hover {
+            box-shadow: 0 8px 25px rgba(18, 247, 255, 0.3);
+            cursor: pointer;
+            z-index: 2;
+        }
+        
+        .image-wrapper:hover .achievement-image {
+            transform: scale(1.05);
+        }
+        
+        .achievement-card:hover .image-wrapper {
+            box-shadow: 0 0 15px rgba(18, 247, 255, 0.4);
+        }
+        
+        /* Image Modal Styling */
+        .image-modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            padding-top: 100px;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(5px);
+        }
+        
+        .modal-content {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 900px;
+            max-height: 80vh;
+            object-fit: contain;
+            border: 3px solid var(--hover-color);
+            box-shadow: 0 0 30px var(--hover-color);
+            animation: zoom 0.3s;
+            border-radius: 5px;
+        }
+        
+        @keyframes zoom {
+            from {transform: scale(0.1); opacity: 0;}
+            to {transform: scale(1); opacity: 1;}
+        }
+        
+        #modalCaption {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 700px;
+            text-align: center;
+            color: var(--hover-color);
+            padding: 10px 0;
+            font-weight: 500;
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: var(--hover-color);
+            font-size: 40px;
+            font-weight: bold;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+        
+        .modal-close:hover,
+        .modal-close:focus {
+            color: #fff;
+            text-decoration: none;
+            cursor: pointer;
+            transform: scale(1.1);
+        }
+        
+        /* Image Modal Styling */
+        .image-modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            padding-top: 50px;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(5px);
+        }
+        
+        .modal-content {
+            margin: auto;
+            display: block;
+            max-width: 80%;
+            max-height: 80%;
+            border: 3px solid var(--hover-color);
+            box-shadow: 0 0 25px rgba(18, 247, 255, 0.5);
+            animation: modalFadeIn 0.5s;
+            border-radius: 8px;
+        }
+        
+        @keyframes modalFadeIn {
+            from {opacity: 0; transform: scale(0.9);}
+            to {opacity: 1; transform: scale(1);}
+        }
+        
+        #modalCaption {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 700px;
+            text-align: center;
+            color: var(--hover-color);
+            padding: 20px 0;
+            height: 50px;
+            font-weight: 600;
+            font-size: 1.2rem;
+            text-shadow: 0 0 5px rgba(18, 247, 255, 0.5);
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: var(--hover-color);
+            font-size: 40px;
+            font-weight: bold;
+            transition: 0.3s;
+            z-index: 1001;
+        }
+        
+        .modal-close:hover,
+        .modal-close:focus {
+            color: #fff;
+            text-decoration: none;
+            cursor: pointer;
+            transform: rotate(90deg);
         }
 
         /* Enhanced empty state styling */
@@ -487,6 +771,27 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
+        /* Enhanced hover animations */
+        .achievement-card.card-hover .achievement-title::after {
+            width: 100%;
+        }
+        
+        .achievement-card.card-hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 25px rgba(18, 247, 255, 0.4);
+            background: linear-gradient(135deg, rgba(18, 20, 26, 0.9) 0%, rgba(18, 247, 255, 0.15) 100%);
+        }
+        
+        .achievement-card.card-hover .achievement-icon {
+            background: rgba(18, 247, 255, 0.2);
+            box-shadow: 0 0 20px rgba(18, 247, 255, 0.5);
+            transform: scale(1.1);
+        }
+        
+        .achievement-card.card-leaving {
+            transition: all 0.3s ease;
+        }
+        
         /* Responsive tweaks */
         @media (max-width: 768px) {
             .achievements-grid {
@@ -522,6 +827,69 @@
             }
         }
     </style>
+    
+    <!-- Add animation and modal scripts -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add animation delay to each achievement card for staggered entry
+            const cards = document.querySelectorAll('.achievement-card');
+            cards.forEach((card, index) => {
+                card.style.animationDelay = (index * 0.1) + 's';
+                card.style.setProperty('--index', index + 1);
+            });
+            
+            // Add hover effect class for better animation handling
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', () => {
+                    card.classList.add('card-hover');
+                });
+                
+                card.addEventListener('mouseleave', () => {
+                    card.classList.add('card-leaving');
+                    setTimeout(() => {
+                        card.classList.remove('card-hover');
+                        card.classList.remove('card-leaving');
+                    }, 300);
+                });
+            });
+            
+            // Set up modal functionality
+            const modal = document.getElementById('imageModal');
+            const modalImg = document.getElementById('modalImage');
+            const captionText = document.getElementById('modalCaption');
+            const closeBtn = document.getElementsByClassName('modal-close')[0];
+            
+            // Close modal when clicking X
+            closeBtn.onclick = function() {
+                modal.style.display = 'none';
+            }
+            
+            // Close modal when clicking outside the image
+            modal.onclick = function(event) {
+                if (event.target === modal) {
+                    modal.style.display = 'none';
+                }
+            }
+            
+            // Close modal with escape key
+            document.addEventListener('keydown', function(event) {
+                if (event.key === 'Escape' && modal.style.display === 'block') {
+                    modal.style.display = 'none';
+                }
+            });
+        });
+        
+        // Function to open the modal
+        function openImageModal(src, alt) {
+            const modal = document.getElementById('imageModal');
+            const modalImg = document.getElementById('modalImage');
+            const captionText = document.getElementById('modalCaption');
+            
+            modal.style.display = 'block';
+            modalImg.src = src;
+            captionText.innerHTML = alt;
+        }
+    </script>
 </section>
 
 @endsection

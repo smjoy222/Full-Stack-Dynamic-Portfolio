@@ -18,6 +18,25 @@ class AchievementController extends BaseController
             ->get()
             ->map(function ($ach) {
                 // Map fields to match our view requirements
+                $images = [];
+                
+                // Handle JSON-encoded images from Voyager
+                if (!empty($ach->images)) {
+                    if (is_string($ach->images)) {
+                        // Try to decode if it's a JSON string
+                        $decodedImages = json_decode($ach->images, true);
+                        if (is_array($decodedImages)) {
+                            $images = $decodedImages;
+                        } else {
+                            // Single image path as string
+                            $images = [$ach->images];
+                        }
+                    } elseif (is_array($ach->images)) {
+                        // Already an array
+                        $images = $ach->images;
+                    }
+                }
+                
                 return (object) [
                     'id' => $ach->id,
                     'title' => $ach->name,
@@ -25,7 +44,8 @@ class AchievementController extends BaseController
                     'description' => '',  // Not in the model, but handled with empty default
                     'date' => $ach->date,
                     'url' => null, // Not in the model, but handled with null coalescing
-                    'type' => $ach->type
+                    'type' => $ach->type,
+                    'images' => $images
                 ];
             });
         
