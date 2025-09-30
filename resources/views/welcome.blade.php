@@ -151,7 +151,7 @@
       @endforelse
     </div>
     <div class="skill-right">
-      <h3>Professional Skills</h3>
+      <h3>Soft Skills</h3>
       <div class="professional">
         @php
           // Handle all possible variable names to ensure compatibility
@@ -166,7 +166,7 @@
             </div>
           </div>
         @empty
-          <p>No professional skills yet.</p>
+          <p>No soft skills yet.</p>
         @endforelse
       </div>
     </div>

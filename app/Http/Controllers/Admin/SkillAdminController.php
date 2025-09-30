@@ -32,7 +32,7 @@ class SkillAdminController extends Controller
     {
         $data = $request->validate([
             'name' => 'required|string|max:255',
-            'type' => 'required|in:technical,professional',
+            'type' => 'required|in:technical,soft',
             'level' => 'required|integer|min:0|max:100',
             'logo' => 'nullable|image|max:2048',
         ]);
@@ -61,7 +61,7 @@ class SkillAdminController extends Controller
     {
         $data = $request->validate([
             'name' => 'required|string|max:255',
-            'type' => 'required|in:technical,professional',
+            'type' => 'required|in:technical,soft',
             'level' => 'required|integer|min:0|max:100',
             'logo' => 'nullable|image|max:2048',
         ]);

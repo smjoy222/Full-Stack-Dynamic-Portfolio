@@ -48,7 +48,7 @@
         <label style="color:#12f7ff;font-size:14px;margin-bottom:5px;display:block">Skill Type</label>
         <select name="type" required style="width:100%;padding:12px;background:rgba(255,255,255,0.05);color:#fff;border:1px solid rgba(18, 247, 255, 0.3);border-radius:5px;font-size:15px;transition:all 0.3s">
           <option value="technical" @selected(old('type', $skill->type)==='technical')>Technical</option>
-          <option value="professional" @selected(old('type', $skill->type)==='professional')>Professional</option>
+          <option value="soft" @selected(old('type', $skill->type)==='soft')>Soft</option>
         </select>
       </div>
       
