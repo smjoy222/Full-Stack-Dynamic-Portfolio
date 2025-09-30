@@ -28,6 +28,7 @@ class ExperienceAdminController extends Controller
             'organization' => 'required|string|max:255',
             'from_date' => 'required|date',
             'to_date' => 'nullable|date',
+            'description' => 'nullable|string',
         ]);
         $data['user_id'] = (int) config('portfolio.owner_user_id', 3);
         Experience::create($data);
@@ -47,6 +48,7 @@ class ExperienceAdminController extends Controller
             'organization' => 'required|string|max:255',
             'from_date' => 'required|date',
             'to_date' => 'nullable|date',
+            'description' => 'nullable|string',
         ]);
         $experience->update($data);
         return redirect()->route('experiences.index')->with('success', 'Experience updated');

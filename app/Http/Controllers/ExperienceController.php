@@ -23,7 +23,7 @@ class ExperienceController extends BaseController
                     'position' => $exp->designation,
                     'company' => $exp->organization,
                     'location' => null, // Not in the model, but handled with null coalescing in the view
-                    'description' => '',  // Not in the model, but handled with empty default in view
+                    'description' => $exp->description ?? '',  // Use the description field from the model or empty default
                     'from_date' => $exp->from_date,
                     'to_date' => $exp->to_date,
                     'type' => $exp->type

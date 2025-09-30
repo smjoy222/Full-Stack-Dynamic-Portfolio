@@ -69,6 +69,11 @@
         </div>
       </div>
       
+      <div class="form-group">
+        <label style="color:#12f7ff;font-size:14px;margin-bottom:5px;display:block">Description</label>
+        <textarea name="description" placeholder="Enter experience description (responsibilities, achievements, etc.)" rows="5" style="width:100%;padding:12px;background:rgba(255,255,255,0.05);color:#fff;border:1px solid rgba(18, 247, 255, 0.3);border-radius:5px;font-size:15px;transition:all 0.3s;resize:vertical;">{{ old('description') }}</textarea>
+      </div>
+      
       @if ($errors->any())
       <div style="color:#ff6b6b;background:rgba(255,107,107,0.1);padding:10px;border-radius:5px;border-left:3px solid #ff6b6b">
         <strong>Error:</strong> {{ $errors->first() }}

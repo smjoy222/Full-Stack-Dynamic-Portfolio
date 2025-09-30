@@ -86,105 +86,42 @@
       font-size: 1.2rem;
     }
     
-    .experience-timeline {
-      max-width: 1000px;
+    .experience-grid {
+      max-width: 1200px;
       margin: 30px auto;
-      position: relative;
-    }
-    
-    .experience-timeline::before {
-      content: '';
-      position: absolute;
-      height: calc(100% - 40px);
-      width: 4px;
-      background: linear-gradient(to bottom, #12f7ff, rgba(18, 247, 255, 0.1));
-      left: 50%;
-      transform: translateX(-50%);
-      top: 20px;
-      border-radius: 2px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 25px;
     }
     
     .experience-card {
-      width: calc(50% - 30px);
       background: rgba(41, 46, 51, 0.7);
       border-radius: 15px;
       padding: 25px;
       box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
       position: relative;
-      margin-bottom: 40px;
       transition: all 0.3s ease;
-    }
-    
-    .experience-card:nth-child(odd) {
-      margin-left: auto;
-      margin-right: 30px;
-    }
-    
-    .experience-card:nth-child(even) {
-      margin-left: 30px;
-    }
-    
-    .experience-card:nth-child(odd)::before {
-      content: '';
-      position: absolute;
-      left: -35px;
-      top: 20px;
-      width: 35px;
-      height: 4px;
-      background: linear-gradient(to left, #12f7ff, rgba(18, 247, 255, 0.1));
-    }
-    
-    .experience-card:nth-child(even)::before {
-      content: '';
-      position: absolute;
-      right: -35px;
-      top: 20px;
-      width: 35px;
-      height: 4px;
-      background: linear-gradient(to right, #12f7ff, rgba(18, 247, 255, 0.1));
-    }
-    
-    .experience-card::after {
-      content: '';
-      position: absolute;
-      width: 16px;
-      height: 16px;
-      background: #12f7ff;
-      top: 14px;
-      border-radius: 50%;
-      box-shadow: 0 0 10px rgba(18, 247, 255, 0.8);
-    }
-    
-    .experience-card:nth-child(odd)::after {
-      left: -43px;
-    }
-    
-    .experience-card:nth-child(even)::after {
-      right: -43px;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      border-left: 4px solid #12f7ff;
     }
     
     .experience-card:hover {
       transform: translateY(-8px);
-      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3), 0 0 15px rgba(18, 247, 255, 0.1);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3), 0 0 15px rgba(18, 247, 255, 0.3);
     }
     
     .experience-date {
       position: absolute;
       top: -10px;
+      right: 20px;
       background: linear-gradient(90deg, rgba(18, 247, 255, 0.2), transparent);
       padding: 5px 15px;
       border-radius: 20px;
       font-size: 0.8rem;
       color: #12f7ff;
       font-weight: 600;
-    }
-    
-    .experience-card:nth-child(odd) .experience-date {
-      right: 20px;
-    }
-    
-    .experience-card:nth-child(even) .experience-date {
-      left: 20px;
     }
     
     .experience-role {
@@ -198,6 +135,67 @@
     .experience-company {
       font-size: 1.1rem;
       font-weight: 500;
+      margin-bottom: 10px;
+    }
+    
+    .experience-description {
+      margin-top: 15px;
+      flex-grow: 1;
+      border-top: 1px solid rgba(18, 247, 255, 0.2);
+      padding-top: 15px;
+    }
+    
+    .experience-description h4 {
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #12f7ff;
+      margin-bottom: 8px;
+    }
+    
+    .experience-description p {
+      font-size: 0.95rem;
+      color: #e0e0e0;
+      line-height: 1.6;
+    }
+    
+    .experience-type {
+      margin-top: 10px;
+    }
+    
+    .badge {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 50px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    .type-job {
+      background-color: rgba(132, 94, 247, 0.2);
+      color: #845ef7;
+      border: 1px solid rgba(132, 94, 247, 0.4);
+    }
+    
+    .type-internship {
+      background-color: rgba(51, 217, 178, 0.2);
+      color: #33d9b2;
+      border: 1px solid rgba(51, 217, 178, 0.4);
+    }
+    
+    .type-freelance {
+      background-color: rgba(255, 171, 64, 0.2);
+      color: #ffab40;
+      border: 1px solid rgba(255, 171, 64, 0.4);
+    }
+    
+    .type-volunteer {
+      background-color: rgba(233, 30, 99, 0.2);
+      color: #e91e63;
+      border: 1px solid rgba(233, 30, 99, 0.4);
+    }
       color: #12f7ff;
       margin-bottom: 15px;
       display: flex;
@@ -290,7 +288,7 @@
     }
   </style>
   
-  <div class="experience-timeline">
+  <div class="experience-grid">
     @foreach($items as $item)
     <div class="experience-card">
       <div class="experience-date">
@@ -300,7 +298,16 @@
       <div class="experience-company">
         <i class="bi bi-building"></i> {{ $item->organization }}
       </div>
-      <p class="experience-description">{{ $item->description ?? 'No description provided.' }}</p>
+      
+      <div class="experience-type">
+        <span class="badge type-{{ $item->type }}">{{ ucfirst($item->type) }}</span>
+      </div>
+      
+      <div class="experience-description">
+        <h4>Description</h4>
+        <p>{{ $item->description ?? 'No description provided.' }}</p>
+      </div>
+      
       <div class="experience-actions">
         <a href="{{ route('experiences.edit', $item) }}" class="btn-edit">
           <i class="bi bi-pencil-square"></i> Edit
@@ -347,6 +354,56 @@
     .pagination-wrapper span[aria-current="page"] span {
       background: rgba(18, 247, 255, 0.2) !important;
       border-color: #12f7ff !important;
+    }
+    
+    .experience-actions {
+      display: flex;
+      gap: 15px;
+      justify-content: flex-end;
+      margin-top: 20px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding-top: 15px;
+    }
+    
+    .btn-edit, .btn-delete {
+      background: transparent;
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.2);
+      padding: 8px 15px;
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.85rem;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      text-decoration: none;
+      flex: 1;
+      justify-content: center;
+    }
+    
+    .btn-edit {
+      color: #5ed3f3;
+      border-color: rgba(94, 211, 243, 0.4);
+    }
+    
+    .btn-delete {
+      color: #ff6b81;
+      border-color: rgba(255, 107, 129, 0.4);
+    }
+    
+    .btn-edit:hover {
+      background: rgba(94, 211, 243, 0.1);
+      color: #5ed3f3;
+      text-shadow: 0 0 8px rgba(94, 211, 243, 0.6);
+      transform: translateY(-2px);
+    }
+    
+    .btn-delete:hover {
+      background: rgba(255, 107, 129, 0.1);
+      color: #ff6b81;
+      text-shadow: 0 0 8px rgba(255, 71, 87, 0.6);
+      transform: translateY(-2px);
     }
   </style>
 </section>

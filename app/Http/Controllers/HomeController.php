@@ -9,13 +9,17 @@ class HomeController extends BaseController
 {
     public function index()
     {
-        // Get all skills from the database (regardless of user_id for now)
+        // Get the portfolio owner ID from config
+        $ownerId = (int) config('portfolio.owner_user_id', 3);
+        
+        // Get all skills for the portfolio owner
         $skills = Skill::query()
+            ->where('user_id', $ownerId)
             ->orderBy('type')
             ->orderBy('name')
             ->get();
 
-        // Use the correct skill types that we set in the database (get all skills, no limit)
+        // Get technical and soft skills
         $technicalSkills = $skills->where('type', 'technical')->values();
         $professionalSkills = $skills->where('type', 'soft')->values();
         
