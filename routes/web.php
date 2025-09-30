@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\EducationController;
 use App\Http\Controllers\ExperienceController;
 use App\Http\Controllers\AchievementController;
+use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SkillsController;
 use App\Http\Controllers\AdminController;
@@ -38,9 +39,7 @@ Route::get('/experience', [ExperienceController::class, 'index'])->name('experie
 
 Route::get('/achievement', [AchievementController::class, 'index'])->name('achievement');
 
-Route::get('/project', function () {
-    return view('project');
-});
+Route::get('/project', [ProjectController::class, 'index'])->name('project');
 
 Route::get('/about', function () {
     return view('about');
