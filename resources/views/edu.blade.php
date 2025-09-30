@@ -42,30 +42,29 @@
             </div>
         </div>
 
-        <div class="education-cards">
+        <div class="achievements-grid">
             @forelse(($educations ?? []) as $edu)
-                <div class="education-card">
-                    <div class="education-icon">
-                        <i class="bi bi-mortarboard"></i>
+                <div class="achievement-card">
+                    <div class="achievement-header">
+                        <div class="achievement-icon">
+                            <i class="bi bi-mortarboard"></i>
+                        </div>
+                        <h3 class="achievement-title">{{ $edu->type }} {{ $edu->name ? '— '.$edu->name : '' }}</h3>
                     </div>
-                    <div class="education-details">
-                        <h3>{{ $edu->type }} {{ $edu->name ? '— '.$edu->name : '' }}</h3>
-                        <div class="education-meta">
-                            <span class="education-institute">
+                    <div class="achievement-details">
+                        <div class="achievement-meta">
+                            <span class="achievement-issuer">
                                 <i class="bi bi-building"></i>
                                 {{ $edu->institute }}
                             </span>
-                            <span class="education-year">
+                            <span class="achievement-date">
                                 <i class="bi bi-calendar-event"></i>
                                 {{ $edu->enrolled_year }}
                                 @if(!empty($edu->passing_year)) - {{ $edu->passing_year }} @else - <span class="present-tag">Present</span> @endif
                             </span>
                         </div>
                         @if(!empty($edu->grade))
-                            <div class="education-grade">
-                                <i class="bi bi-award"></i>
-                                <span>Grade/CGPA: {{ $edu->grade }}</span>
-                            </div>
+                            <p>Grade/CGPA: {{ $edu->grade }}</p>
                         @endif
                     </div>
                 </div>
@@ -214,42 +213,42 @@
                 opacity: 1;
             }
         }
-        
-        /* Education Cards */
-        .education-cards {
+
+        /* Achievement Grid */
+        .achievements-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
             gap: 2rem;
             animation: fadeIn 1s ease-out;
         }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        @keyframes fadeInDown {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        /* Education Card */
-        .education-card {
+
+        /* Achievement Card */
+        .achievement-card {
             background: rgba(18, 20, 26, 0.8);
             border: 2px solid var(--hover-color);
             border-radius: 15px;
             padding: 25px;
             display: flex;
+            flex-direction: column;
             gap: 20px;
             position: relative;
             overflow: hidden;
             box-shadow: 0 0 15px rgba(18, 247, 255, 0.3);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: all 0.3s ease;
             backdrop-filter: blur(5px);
+            opacity: 0;
             animation: cardAppear 0.5s ease-out forwards;
             animation-delay: calc(var(--index, 0) * 0.1s);
-            opacity: 0;
         }
+        
+        .achievement-card:nth-child(1) { --index: 1; }
+        .achievement-card:nth-child(2) { --index: 2; }
+        .achievement-card:nth-child(3) { --index: 3; }
+        .achievement-card:nth-child(4) { --index: 4; }
+        .achievement-card:nth-child(5) { --index: 5; }
+        .achievement-card:nth-child(6) { --index: 6; }
+        .achievement-card:nth-child(7) { --index: 7; }
+        .achievement-card:nth-child(8) { --index: 8; }
         
         @keyframes cardAppear {
             from {
@@ -261,13 +260,8 @@
                 transform: translateY(0);
             }
         }
-        
-        .education-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 25px rgba(18, 247, 255, 0.4);
-        }
-        
-        .education-card::before {
+
+        .achievement-card::before {
             content: '';
             position: absolute;
             top: 0;
@@ -276,9 +270,34 @@
             height: 100%;
             background: linear-gradient(135deg, transparent 0%, rgba(18, 247, 255, 0.1) 100%);
             z-index: -1;
+            transition: all 0.3s ease;
+            opacity: 0;
+        }
+
+        .achievement-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 25px rgba(18, 247, 255, 0.4);
+            background: linear-gradient(135deg, rgba(18, 20, 26, 0.9) 0%, rgba(18, 247, 255, 0.15) 100%);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease, background 0.3s ease;
+        }
+
+        .achievement-card:hover::before {
+            opacity: 1;
         }
         
-        .education-icon {
+        .achievement-card:hover .achievement-title::after {
+            width: 100%;
+            transition: width 0.3s ease;
+        }
+
+        .achievement-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 10px;
+        }
+        
+        .achievement-icon {
             flex: 0 0 60px;
             height: 60px;
             border-radius: 50%;
@@ -289,22 +308,71 @@
             font-size: 24px;
             color: var(--hover-color);
             border: 2px solid rgba(18, 247, 255, 0.2);
+            box-shadow: 0 0 15px rgba(18, 247, 255, 0.3);
+            position: relative;
+            z-index: 1;
+            transition: all 0.3s ease;
         }
         
-        .education-details {
-            flex: 1;
-        }
-        
-        .education-details h3 {
+        .achievement-title {
             font-size: 20px;
             font-weight: 700;
             color: var(--hover-color);
-            margin-bottom: 12px;
+            margin-bottom: 0;
             position: relative;
             display: inline-block;
         }
         
-        .education-details h3::after {
+        .achievement-icon::before {
+            content: '';
+            position: absolute;
+            width: 120%;
+            height: 120%;
+            border-radius: 50%;
+            border: 1px dashed var(--hover-color);
+            animation: spin 20s linear infinite;
+        }
+
+        .achievement-icon i {
+            font-size: 2.5rem;
+            color: var(--hover-color);
+            animation: pulse 2s infinite alternate;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        @keyframes pulse {
+            0% { 
+                transform: scale(1); 
+                opacity: 1;
+            }
+            100% { 
+                transform: scale(1.2); 
+                opacity: 0.8; 
+            }
+        }
+
+        .achievement-details {
+            flex: 1;
+            position: relative;
+            z-index: 1;
+            background: rgba(18, 20, 26, 0.5);
+            border-radius: 10px;
+            padding: 15px;
+            border: 1px solid rgba(18, 247, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .achievement-card:hover .achievement-details {
+            background: rgba(18, 20, 26, 0.7);
+            border: 1px solid rgba(18, 247, 255, 0.3);
+            box-shadow: 0 5px 15px rgba(18, 247, 255, 0.15);
+        }
+
+        .achievement-title::after {
             content: '';
             position: absolute;
             left: 0;
@@ -312,155 +380,226 @@
             height: 2px;
             width: 50px;
             background: linear-gradient(to right, var(--hover-color), transparent);
+            transition: width 0.3s ease;
         }
-        
-        .education-meta {
+
+        .achievement-meta {
             display: flex;
             flex-direction: column;
             gap: 8px;
             margin-bottom: 15px;
+            background: rgba(18, 20, 26, 0.3);
+            border-radius: 8px;
+            padding: 10px;
+            border: 1px solid rgba(18, 247, 255, 0.05);
         }
-        
-        .education-institute, .education-year, .education-grade {
+
+        .achievement-date, .achievement-issuer {
             display: flex;
             align-items: center;
             gap: 8px;
             color: var(--text-color);
             font-size: 14px;
+            padding: 5px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
         }
         
-        .education-institute i, .education-year i, .education-grade i {
+        .achievement-card:hover .achievement-date,
+        .achievement-card:hover .achievement-issuer {
+            background: rgba(18, 247, 255, 0.05);
+        }
+        
+        .achievement-date i, .achievement-issuer i {
             color: var(--hover-color);
             font-size: 14px;
+        }
+
+        .achievement-details p {
+            color: var(--text-color);
+            margin-bottom: 20px;
+            line-height: 1.6;
+            font-size: 15px;
+            padding: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .achievement-card:hover .achievement-details p {
+            color: var(--text-color);
         }
         
         .present-tag {
             color: var(--hover-color);
             font-weight: 500;
         }
-        
-        /* Empty State */
+
+        /* Enhanced empty state styling */
         .empty-message {
             text-align: center;
-            padding: 60px 30px;
-            color: var(--text-color);
-            background: rgba(18, 20, 26, 0.8);
+            padding: 50px 30px;
+            background: rgba(18, 20, 26, 0.6);
             border: 2px solid var(--hover-color);
-            border-radius: 15px;
-            box-shadow: 0 0 15px rgba(18, 247, 255, 0.2);
-            animation: fadeIn 1s ease-out;
+            border-radius: 20px;
+            box-shadow: 0 0 30px rgba(18, 247, 255, 0.3);
             grid-column: 1 / -1;
-            backdrop-filter: blur(5px);
+            max-width: 600px;
+            margin: 40px auto;
+            position: relative;
+            overflow: hidden;
+            animation: fadeIn 1s ease-out;
+            backdrop-filter: blur(10px);
         }
         
-        .empty-message i {
-            font-size: 50px;
+            .empty-message i {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 30px;
+            border-radius: 50%;
+            background: linear-gradient(145deg, rgba(18, 247, 255, 0.1), rgba(18, 247, 255, 0.05));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            border: 2px solid rgba(18, 247, 255, 0.3);
+            font-size: 3.5rem;
             color: var(--hover-color);
-            margin-bottom: 20px;
-            opacity: 0.8;
-            text-shadow: 0 0 10px rgba(18, 247, 255, 0.5);
             animation: pulse 2s infinite alternate;
         }
         
-        @keyframes pulse {
-            0% { transform: scale(1); opacity: 0.8; }
-            100% { transform: scale(1.1); opacity: 1; }
-        }
-        
-        .empty-message h3 {
-            font-size: 26px;
-            color: var(--hover-color);
-            margin-bottom: 15px;
-        }
-        
-        .empty-message p {
-            font-size: 16px;
-            max-width: 500px;
-            margin: 0 auto 25px;
-            line-height: 1.6;
-        }
-        
         .tech-decoration {
-            margin-top: 25px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 8px;
+            margin-top: 30px;
         }
         
         .code-line {
-            height: 2px;
-            background: linear-gradient(to right, transparent, rgba(18, 247, 255, 0.5), transparent);
-            animation: expandLine 1.5s ease infinite alternate;
+            height: 4px;
+            background: linear-gradient(to right, transparent, var(--hover-color), transparent);
+            margin: 10px auto;
+            width: 60%;
+            opacity: 0.5;
         }
         
-        @keyframes expandLine {
-            0% { width: 60px; }
-            100% { width: 120px; }
+        .code-line:nth-child(1) { width: 40%; }
+        .code-line:nth-child(2) { width: 60%; }
+        .code-line:nth-child(3) { width: 30%; }        .empty-message i::before {
+            content: '';
+            position: absolute;
+            width: 120%;
+            height: 120%;
+            border-radius: 50%;
+            border: 2px dashed var(--hover-color);
+            animation: spin 20s linear infinite;
         }
         
-        .code-line:nth-child(1) { animation-delay: 0s; }
-        .code-line:nth-child(2) { animation-delay: 0.5s; }
-        .code-line:nth-child(3) { animation-delay: 1s; }
-        
-        /* Responsive Design */
-        @media (max-width: 1024px) {
-            .education-cards {
-                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            }
+        .empty-message h3 {
+            color: white;
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .empty-message p {
+            color: #d5d5d5;
+            font-size: 1.1rem;
+            max-width: 400px;
+            margin: 0 auto;
+            line-height: 1.6;
         }
         
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Enhanced hover animations */
+        .achievement-card.card-hover .achievement-title::after {
+            width: 100%;
+        }
+        
+        .achievement-card.card-hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 25px rgba(18, 247, 255, 0.4);
+            background: linear-gradient(135deg, rgba(18, 20, 26, 0.9) 0%, rgba(18, 247, 255, 0.15) 100%);
+        }
+        
+        .achievement-card.card-hover .achievement-icon {
+            background: rgba(18, 247, 255, 0.2);
+            box-shadow: 0 0 20px rgba(18, 247, 255, 0.5);
+            transform: scale(1.1);
+        }
+        
+        .achievement-card.card-leaving {
+            transition: all 0.3s ease;
+        }
+        
+        /* Responsive tweaks */
         @media (max-width: 768px) {
-            .education {
-                padding: 4rem 1rem;
-            }
-            
-            .education-cards {
-                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            .achievements-grid {
+                grid-template-columns: 1fr;
                 gap: 1.5rem;
             }
             
             .main-text .glow-text {
-                font-size: 2.5rem;
+                font-size: calc(var(--h2-font) - 0.2rem);
             }
             
-            .main-text .animated-text {
-                font-size: 0.9rem;
+            .divider {
+                width: 95%;
             }
         }
         
-        @media (max-width: 576px) {
-            .education-cards {
-                grid-template-columns: 1fr;
+        /* Animations for smaller screens */
+        @media screen and (max-width: 480px) {
+            .education {
+                padding: 4rem 0.75rem;
             }
             
-            .education-card {
+            .achievement-card {
                 padding: 20px;
             }
             
-            .main-text .glow-text {
-                font-size: 2rem;
+            .empty-message {
+                padding: 40px 20px;
+            }
+            
+            .main-text {
+                margin-bottom: 3rem;
             }
         }
-        
-        /* Add animation to education cards on page load */
-        .education-cards .education-card:nth-child(1) { --index: 1; }
-        .education-cards .education-card:nth-child(2) { --index: 2; }
-        .education-cards .education-card:nth-child(3) { --index: 3; }
-        .education-cards .education-card:nth-child(4) { --index: 4; }
-        .education-cards .education-card:nth-child(5) { --index: 5; }
-        .education-cards .education-card:nth-child(6) { --index: 6; }
-        .education-cards .education-card:nth-child(7) { --index: 7; }
-        .education-cards .education-card:nth-child(8) { --index: 8; }
     </style>
     
-    <!-- Add an animation script to enhance education cards on page load -->
+    <!-- Add animation and modal scripts -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Add animation delay to each education card for staggered entry
-            const cards = document.querySelectorAll('.education-card');
+            // Add animation delay to each achievement card for staggered entry
+            const cards = document.querySelectorAll('.achievement-card');
             cards.forEach((card, index) => {
                 card.style.animationDelay = (index * 0.1) + 's';
+                card.style.setProperty('--index', index + 1);
+            });
+            
+            // Add hover effect class for better animation handling
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', () => {
+                    card.classList.add('card-hover');
+                });
+                
+                card.addEventListener('mouseleave', () => {
+                    card.classList.add('card-leaving');
+                    setTimeout(() => {
+                        card.classList.remove('card-hover');
+                        card.classList.remove('card-leaving');
+                    }, 300);
+                });
             });
         });
     </script>
