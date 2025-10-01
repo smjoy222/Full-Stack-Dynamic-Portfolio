@@ -11,6 +11,7 @@ class Experience extends Model
         'type',
         'designation',
         'organization',
+        'location',
         'from_date',
         'to_date',
         'description',

@@ -18,16 +18,28 @@ class ExperienceController extends BaseController
             ->get()
             ->map(function ($exp) {
                 // Map fields to match our view requirements
-                return (object) [
-                    'id' => $exp->id,
-                    'position' => $exp->designation,
-                    'company' => $exp->organization,
-                    'location' => null, // Not in the model, but handled with null coalescing in the view
-                    'description' => $exp->description ?? '',  // Use the description field from the model or empty default
-                    'from_date' => $exp->from_date,
-                    'to_date' => $exp->to_date,
-                    'type' => $exp->type
-                ];
+                // Create object with safe properties
+                $expObj = new \stdClass();
+                $expObj->id = $exp->id;
+                $expObj->position = $exp->designation;
+                $expObj->company = $exp->organization;
+                $expObj->location = 'Remote'; // Default value
+                
+                // Try to access location field but don't fail if it doesn't exist
+                try {
+                    if (isset($exp->location)) {
+                        $expObj->location = $exp->location;
+                    }
+                } catch (\Exception $e) {
+                    // Do nothing, use the default value
+                }
+                
+                $expObj->description = $exp->description ?? '';
+                $expObj->from_date = $exp->from_date;
+                $expObj->to_date = $exp->to_date;
+                $expObj->type = $exp->type;
+                
+                return $expObj;
             });
         
         return view('experience', compact('experiences'));

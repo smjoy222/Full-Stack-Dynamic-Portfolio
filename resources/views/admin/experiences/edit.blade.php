@@ -50,6 +50,11 @@
       </div>
       
       <div class="form-group">
+        <label style="color:#12f7ff;font-size:14px;margin-bottom:5px;display:block">Location</label>
+        <input name="location" placeholder="Enter job location or 'Remote'" value="{{ old('location', $experience->location) }}" style="width:100%;padding:12px;background:rgba(255,255,255,0.05);color:#fff;border:1px solid rgba(18, 247, 255, 0.3);border-radius:5px;font-size:15px;transition:all 0.3s">
+      </div>
+      
+      <div class="form-group">
         <label style="color:#12f7ff;font-size:14px;margin-bottom:5px;display:block">Type</label>
         <select name="type" style="width:100%;padding:12px;background:rgba(255,255,255,0.05);color:#fff;border:1px solid rgba(18, 247, 255, 0.3);border-radius:5px;font-size:15px;transition:all 0.3s">
           <option value="job" {{ old('type', $experience->type) == 'job' ? 'selected' : '' }}>Job</option>

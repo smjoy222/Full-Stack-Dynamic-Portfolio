@@ -207,6 +207,20 @@
       font-size: 1.2rem;
     }
     
+    .experience-location {
+      color: #a0a0a0;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.9rem;
+    }
+    
+    .experience-location i {
+      font-size: 1.1rem;
+      color: #12f7ff;
+    }
+    
     .experience-description {
       color: #ccc;
       margin-bottom: 15px;
@@ -297,6 +311,10 @@
       <h3 class="experience-role">{{ $item->designation }}</h3>
       <div class="experience-company">
         <i class="bi bi-building"></i> {{ $item->organization }}
+      </div>
+      
+      <div class="experience-location">
+        <i class="bi bi-geo-alt"></i> {{ $item->location ?? 'Remote' }}
       </div>
       
       <div class="experience-type">
