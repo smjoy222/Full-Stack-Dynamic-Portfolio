@@ -25,10 +25,11 @@
         <div class="change-text">
           <h3>And I'm </h3>
           <h3>
-            <span class="word">Web&nbsp;Developer</span>
+            {{-- <span class="word">Web&nbsp;Developer</span> --}}
             <span class="word">Student</span>
             <span class="word">UI/UX&nbsp;Designer</span>
-            <span class="word">Software&nbsp;Developer</span>
+            <span class="word">Early-Career&nbsp;Researcher</span>
+            {{-- <span class="word">Software&nbsp;Developer</span> --}}
             <span class="word">Frontend&nbsp;Developer</span>
           </h3>
         </div>
