@@ -20,15 +20,7 @@ class PortfolioSeeder extends Seeder
      */
     public function run(): void
     {
-        // Ensure user role exists and create/update a sample user with role_id
-        $roleId = \DB::table('roles')->where('name', 'user')->value('id')
-            ?? \DB::table('roles')->insertGetId([
-                'name' => 'user',
-                'display_name' => 'User',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ]);
-
+        // Create a sample user
         $user = User::updateOrCreate(
             ['email' => 'smjoy222@gmail.com'],
             [
@@ -36,7 +28,6 @@ class PortfolioSeeder extends Seeder
                 'phone' => '+8801234567890',
                 'student_id' => 'CSE2021001',
                 'password' => bcrypt('password'),
-                'role_id' => $roleId,
                 'email_verified_at' => now(),
             ]
         );
@@ -85,10 +76,10 @@ class PortfolioSeeder extends Seeder
             ['name' => 'Programming', 'type' => 'technical', 'level' => 85],
             ['name' => 'Research', 'type' => 'technical', 'level' => 90],
             // Professional
-            ['name' => 'Team Work', 'type' => 'soft', 'level' => 90],
-            ['name' => 'Creativity', 'type' => 'soft', 'level' => 80],
-            ['name' => 'Project Management', 'type' => 'soft', 'level' => 70],
-            ['name' => 'Communication', 'type' => 'soft', 'level' => 75],
+            ['name' => 'Team Work', 'type' => 'professional', 'level' => 90],
+            ['name' => 'Creativity', 'type' => 'professional', 'level' => 80],
+            ['name' => 'Project Management', 'type' => 'professional', 'level' => 70],
+            ['name' => 'Communication', 'type' => 'professional', 'level' => 75],
         ];
 
         foreach ($skills as $skill) {

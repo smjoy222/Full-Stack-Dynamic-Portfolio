@@ -46,6 +46,44 @@
       <span>WELCOME BACK</span>
       <h2 style="color:#12f7ff">Dashboard</h2>
     </div>
+    
+    <!-- Statistics Cards -->
+    <div class="stats-container" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;margin-bottom:40px;">
+      <div class="stat-card" style="background:var(--second-bg-color);padding:25px;border-radius:15px;border:2px solid #12f7ff33;text-align:center;transition:all 0.3s;">
+        <i class="bi bi-kanban" style="font-size:2.5rem;color:#12f7ff;margin-bottom:10px;"></i>
+        <h3 style="color:#12f7ff;font-size:2rem;margin:10px 0;">{{ $stats['projects'] }}</h3>
+        <p style="color:var(--text-color);font-size:1rem;">Projects</p>
+      </div>
+      <div class="stat-card" style="background:var(--second-bg-color);padding:25px;border-radius:15px;border:2px solid #12f7ff33;text-align:center;transition:all 0.3s;">
+        <i class="bi bi-diagram-3" style="font-size:2.5rem;color:#12f7ff;margin-bottom:10px;"></i>
+        <h3 style="color:#12f7ff;font-size:2rem;margin:10px 0;">{{ $stats['skills'] }}</h3>
+        <p style="color:var(--text-color);font-size:1rem;">Skills</p>
+      </div>
+      <div class="stat-card" style="background:var(--second-bg-color);padding:25px;border-radius:15px;border:2px solid #12f7ff33;text-align:center;transition:all 0.3s;">
+        <i class="bi bi-journal-text" style="font-size:2.5rem;color:#12f7ff;margin-bottom:10px;"></i>
+        <h3 style="color:#12f7ff;font-size:2rem;margin:10px 0;">{{ $stats['education'] }}</h3>
+        <p style="color:var(--text-color);font-size:1rem;">Education</p>
+      </div>
+      <div class="stat-card" style="background:var(--second-bg-color);padding:25px;border-radius:15px;border:2px solid #12f7ff33;text-align:center;transition:all 0.3s;">
+        <i class="bi bi-briefcase" style="font-size:2.5rem;color:#12f7ff;margin-bottom:10px;"></i>
+        <h3 style="color:#12f7ff;font-size:2rem;margin:10px 0;">{{ $stats['experiences'] }}</h3>
+        <p style="color:var(--text-color);font-size:1rem;">Experiences</p>
+      </div>
+      <div class="stat-card" style="background:var(--second-bg-color);padding:25px;border-radius:15px;border:2px solid #12f7ff33;text-align:center;transition:all 0.3s;">
+        <i class="bi bi-award" style="font-size:2.5rem;color:#12f7ff;margin-bottom:10px;"></i>
+        <h3 style="color:#12f7ff;font-size:2rem;margin:10px 0;">{{ $stats['achievements'] }}</h3>
+        <p style="color:var(--text-color);font-size:1rem;">Achievements</p>
+      </div>
+    </div>
+    
+    <style>
+      .stat-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 0 20px rgba(18, 247, 255, 0.3);
+        border-color: #12f7ff;
+      }
+    </style>
+    
     <div class="dashboard-grid">
       <div class="dashboard-item">
         <i class="bi bi-journal-text"></i>

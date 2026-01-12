@@ -14,20 +14,8 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $this->call([
-            // Voyager core seeders (creates roles, permissions, menus, settings, etc.)
-            VoyagerDatabaseSeeder::class,
-
-            // Voyager's default admin user (uses roles table)
-            UsersTableSeeder::class,
-
-            // Project-specific roles/users seeding (safe upsert)
-            RolesAndUsersSeeder::class,
-
-            // Register BREAD for portfolio tables and seed sample data
-            PortfolioBreadSeeder::class,
+            // Portfolio seeder for sample data
             PortfolioSeeder::class,
-            AdminUserSeeder::class,
-            CustomAdminSeeder::class, // Custom admin user seeder
         ]);
     }
 }
