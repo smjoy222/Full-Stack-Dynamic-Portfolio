@@ -133,42 +133,76 @@
   <div class="skill-main">
     <div class="skill-left">
       <h3>Technical Skills</h3>
-      @php
-        // Handle all possible variable names to ensure compatibility
-        $techSkills = $technicalSkills ?? collect();
-      @endphp
-      @forelse($techSkills as $skill)
-        <div class="skill-bar">
-          <div class="info">
-            <p>{{ $skill->name }}</p>
-            <p>{{ (int) $skill->level }}%</p>
-          </div>
-          <div class="bar">
-            <span style="width: {{ (int) $skill->level }}%;"></span>
-          </div>
+      <!-- Edit skills here: Change name and level percentage -->
+      <div class="skill-bar">
+        <div class="info">
+          <p>HTML</p>
+          <p>72%</p>
         </div>
-      @empty
-        <p>No technical skills yet.</p>
-      @endforelse
+        <div class="bar">
+          <span style="width: 72%;"></span>
+        </div>
+      </div>
+      <div class="skill-bar">
+        <div class="info">
+          <p>Flutter</p>
+          <p>80%</p>
+        </div>
+        <div class="bar">
+          <span style="width: 80%;"></span>
+        </div>
+      </div>
+      <div class="skill-bar">
+        <div class="info">
+          <p>Programming</p>
+          <p>85%</p>
+        </div>
+        <div class="bar">
+          <span style="width: 85%;"></span>
+        </div>
+      </div>
+      <div class="skill-bar">
+        <div class="info">
+          <p>Research</p>
+          <p>90%</p>
+        </div>
+        <div class="bar">
+          <span style="width: 90%;"></span>
+        </div>
+      </div>
     </div>
     <div class="skill-right">
       <h3>Soft Skills</h3>
       <div class="professional">
-        @php
-          // Handle all possible variable names to ensure compatibility
-          $profSkills = $professionalSkills ?? ($softSkills ?? collect());
-        @endphp
-        @forelse($profSkills as $skill)
-          <div class="box">
-            <div class="circle" data-dots="80" data-percent="{{ (int) $skill->level }}"></div>
-            <div class="text">
-              <big>{{ (int) $skill->level }}%</big>
-              <small>{{ $skill->name }}</small>
-            </div>
+        <!-- Edit soft skills here: Change data-percent and percentage numbers -->
+        <div class="box">
+          <div class="circle" data-dots="80" data-percent="90"></div>
+          <div class="text">
+            <big>90%</big>
+            <small>Team Work</small>
           </div>
-        @empty
-          <p>No soft skills yet.</p>
-        @endforelse
+        </div>
+        <div class="box">
+          <div class="circle" data-dots="80" data-percent="80"></div>
+          <div class="text">
+            <big>80%</big>
+            <small>Creativity</small>
+          </div>
+        </div>
+        <div class="box">
+          <div class="circle" data-dots="80" data-percent="70"></div>
+          <div class="text">
+            <big>70%</big>
+            <small>Project Management</small>
+          </div>
+        </div>
+        <div class="box">
+          <div class="circle" data-dots="80" data-percent="75"></div>
+          <div class="text">
+            <big>75%</big>
+            <small>Communication</small>
+          </div>
+        </div>
       </div>
     </div>
   </div>

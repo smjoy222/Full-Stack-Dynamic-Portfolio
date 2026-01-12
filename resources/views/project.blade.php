@@ -341,71 +341,76 @@
             </div>
 
             <div class="achievements-grid">
-                @forelse(($projects ?? []) as $project)
-                    <div class="achievement-card">
-                        @if($project->images && count($project->images) > 0)
-                            <div class="achievement-images">
-                                <div class="image-wrapper">
-                                    <img src="{{ asset('storage/' . $project->images[0]) }}" alt="{{ $project->name }}" class="achievement-image">
-                                </div>
-                            </div>
-                        @endif
-                        <div class="achievement-header">
-                             <h3 class="achievement-title">{{ $project->name }}</h3>
-                        </div>
-                        <div class="achievement-details">
-                           
-                            <div class="achievement-meta">
-                                @if($project->status)
-                                    <span class="achievement-issuer">
-                                        <i class="bi bi-check-circle"></i>
-                                        {{ $project->status }}
-                                    </span>
-                                @endif
-                                @if($project->type)
-                                    <span class="achievement-issuer">
-                                        <i class="bi bi-bookmark"></i>
-                                        {{ $project->type }}
-                                    </span>
-                                @endif
-                            </div>
-                            
-                            <p>{{ $project->description }}</p>
-                            
-                            @if($project->tools && count($project->tools) > 0)
-                                <div class="project-tools">
-                                    @foreach($project->tools as $tool)
-                                        <span class="tool-tag">{{ $tool }}</span>
-                                    @endforeach
-                                </div>
-                            @endif
-                            
-                            @if($project->github_url)
-                                <a href="{{ $project->github_url }}" class="view-link" target="_blank" rel="noopener noreferrer">
-                                    <i class="bi bi-github"></i>
-                                    <span>GitHub</span>
-                                </a>
-                            @endif
-                            @if($project->demo_url)
-                                <a href="{{ $project->demo_url }}" class="view-link" target="_blank" rel="noopener noreferrer">
-                                    <i class="bi bi-eye"></i>
-                                    <span>Demo</span>
-                                </a>
-                            @endif
-                        </div>
+                <!-- Edit project entries here -->
+                <div class="achievement-card">
+                    <div class="achievement-header">
+                         <h3 class="achievement-title">E-commerce Website</h3>
                     </div>
-                @empty
-                    <div class="empty-message">
-                        <i class="bi bi-code-square"></i>
-                        <h3>No Projects Yet</h3>
-                        <p>Add your projects from the Admin panel to showcase your work, portfolio items, and development projects.</p>
-                        <div class="tech-decoration">
-                            <div class="code-line"></div>
-                            <div class="code-line"></div>
-                            <div class="code-line"></div>
+                    <div class="achievement-details">
+                       
+                        <div class="achievement-meta">
+                            <span class="achievement-issuer">
+                                <i class="bi bi-check-circle"></i>
+                                active
+                            </span>
+                            <span class="achievement-issuer">
+                                <i class="bi bi-bookmark"></i>
+                                academic
+                            </span>
                         </div>
+                        
+                        <p>A full-stack e-commerce platform built with Laravel and Vue.js</p>
+                        
+                        <div class="project-tools">
+                            <span class="tool-tag">Laravel</span>
+                            <span class="tool-tag">Vue.js</span>
+                            <span class="tool-tag">MySQL</span>
+                            <span class="tool-tag">Bootstrap</span>
+                        </div>
+                        
+                        <a href="https://github.com/smjoy222/ecommerce" class="view-link" target="_blank" rel="noopener noreferrer">
+                            <i class="bi bi-github"></i>
+                            <span>GitHub</span>
+                        </a>
+                        <a href="https://demo.example.com" class="view-link" target="_blank" rel="noopener noreferrer">
+                            <i class="bi bi-eye"></i>
+                            <span>Demo</span>
+                        </a>
                     </div>
-                @endforelse
+                </div>
+                
+                <div class="achievement-card">
+                    <div class="achievement-header">
+                         <h3 class="achievement-title">Portfolio Website</h3>
+                    </div>
+                    <div class="achievement-details">
+                       
+                        <div class="achievement-meta">
+                            <span class="achievement-issuer">
+                                <i class="bi bi-check-circle"></i>
+                                active
+                            </span>
+                            <span class="achievement-issuer">
+                                <i class="bi bi-bookmark"></i>
+                                personal
+                            </span>
+                        </div>
+                        
+                        <p>Personal portfolio website showcasing projects and skills</p>
+                        
+                        <div class="project-tools">
+                            <span class="tool-tag">HTML</span>
+                            <span class="tool-tag">CSS</span>
+                            <span class="tool-tag">JavaScript</span>
+                            <span class="tool-tag">Laravel</span>
+                        </div>
+                        
+                        <a href="https://github.com/smjoy222/portfolio" class="view-link" target="_blank" rel="noopener noreferrer">
+                            <i class="bi bi-github"></i>
+                            <span>GitHub</span>
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
     

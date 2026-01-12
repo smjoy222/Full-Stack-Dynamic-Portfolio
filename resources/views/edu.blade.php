@@ -43,43 +43,50 @@
         </div>
 
         <div class="achievements-grid">
-            @forelse(($educations ?? []) as $edu)
-                <div class="achievement-card">
-                    <div class="achievement-header">
-                        <div class="achievement-icon">
-                            <i class="bi bi-mortarboard"></i>
-                        </div>
-                        <h3 class="achievement-title">{{ $edu->type }} {{ $edu->name ? '— '.$edu->name : '' }}</h3>
+            <!-- Edit education entries here -->
+            <div class="achievement-card">
+                <div class="achievement-header">
+                    <div class="achievement-icon">
+                        <i class="bi bi-mortarboard"></i>
                     </div>
-                    <div class="achievement-details">
-                        <div class="achievement-meta">
-                            <span class="achievement-issuer">
-                                <i class="bi bi-building"></i>
-                                {{ $edu->institute }}
-                            </span>
-                            <span class="achievement-date">
-                                <i class="bi bi-calendar-event"></i>
-                                {{ $edu->enrolled_year }}
-                                @if(!empty($edu->passing_year)) - {{ $edu->passing_year }} @else - <span class="present-tag">Present</span> @endif
-                            </span>
-                        </div>
-                        @if(!empty($edu->grade))
-                            <p>Grade/CGPA: {{ $edu->grade }}</p>
-                        @endif
-                    </div>
+                    <h3 class="achievement-title">BSc — Computer Science & Engineering</h3>
                 </div>
-            @empty
-                <div class="empty-message">
-                    <i class="bi bi-mortarboard"></i>
-                    <h3>No Education Records Yet</h3>
-                    <p>Add your academic qualifications from the Admin panel to showcase your educational background.</p>
-                    <div class="tech-decoration">
-                        <div class="code-line"></div>
-                        <div class="code-line"></div>
-                        <div class="code-line"></div>
+                <div class="achievement-details">
+                    <div class="achievement-meta">
+                        <span class="achievement-issuer">
+                            <i class="bi bi-building"></i>
+                            University of Dhaka
+                        </span>
+                        <span class="achievement-date">
+                            <i class="bi bi-calendar-event"></i>
+                            2021 - 2025
+                        </span>
                     </div>
+                    <p>Grade/CGPA: 3.85</p>
                 </div>
-            @endforelse
+            </div>
+            
+            <div class="achievement-card">
+                <div class="achievement-header">
+                    <div class="achievement-icon">
+                        <i class="bi bi-mortarboard"></i>
+                    </div>
+                    <h3 class="achievement-title">HSC — Science</h3>
+                </div>
+                <div class="achievement-details">
+                    <div class="achievement-meta">
+                        <span class="achievement-issuer">
+                            <i class="bi bi-building"></i>
+                            Dhaka College
+                        </span>
+                        <span class="achievement-date">
+                            <i class="bi bi-calendar-event"></i>
+                            2018 - 2020
+                        </span>
+                    </div>
+                    <p>Grade/CGPA: A+</p>
+                </div>
+            </div>
         </div>
     </div>
     

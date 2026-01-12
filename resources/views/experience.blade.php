@@ -43,47 +43,28 @@
         </div>
 
         <div class="timeline-container">
-            @forelse(($experiences ?? []) as $experience)
-                <div class="timeline-item {{ $loop->iteration % 2 == 0 ? 'right' : 'left' }}">
-                    <div class="timeline-dot">
-                        <div class="pulse-effect"></div>
+            <!-- Edit experience entries here -->
+            <div class="timeline-item left">
+                <div class="timeline-dot">
+                    <div class="pulse-effect"></div>
+                </div>
+                <div class="timeline-content">
+                    <div class="timeline-date">
+                        <i class="bi bi-calendar-event"></i>
+                        Jan 2024 - Jun 2024
                     </div>
-                    <div class="timeline-content">
-                        <div class="timeline-date">
-                            <i class="bi bi-calendar-event"></i>
-                            {{ \Carbon\Carbon::parse($experience->from_date)->format('M Y') }} - 
-                            @if($experience->to_date)
-                                {{ \Carbon\Carbon::parse($experience->to_date)->format('M Y') }}
-                            @else
-                                <span class="present-tag">Present</span>
-                            @endif
-                        </div>
-                        <h3>{{ $experience->position }}</h3>
-                        <h4>{{ $experience->company }}</h4>
-                        <div class="timeline-location">
-                            <i class="bi bi-geo-alt"></i> {{ $experience->location ?? 'Remote' }}
-                        </div>
-                        <p>{{ $experience->description }}</p>
-                        
-                        <div class="timeline-type">
-                            <span class="badge">{{ ucfirst($experience->type ?? 'job') }}</span>
-                        </div>
+                    <h3>Web Developer Intern</h3>
+                    <h4>Tech Solutions Ltd.</h4>
+                    <div class="timeline-location">
+                        <i class="bi bi-geo-alt"></i> Remote
+                    </div>
+                    <p>Worked on various web development projects using modern technologies and frameworks.</p>
+                    
+                    <div class="timeline-type">
+                        <span class="badge">Internship</span>
                     </div>
                 </div>
-            @empty
-                <div class="empty-state">
-                    <div class="empty-icon">
-                        <i class="bi bi-briefcase"></i>
-                    </div>
-                    <h3>No Experience Records Yet</h3>
-                    <p>Add your professional experiences from the Admin panel to showcase your career journey.</p>
-                    <div class="tech-decoration">
-                        <div class="code-line"></div>
-                        <div class="code-line"></div>
-                        <div class="code-line"></div>
-                    </div>
-                </div>
-            @endforelse
+            </div>
         </div>
     </div>
 

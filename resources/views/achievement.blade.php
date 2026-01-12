@@ -46,79 +46,28 @@
         </div>
 
         <div class="achievements-grid">
-            @forelse(($achievements ?? []) as $achievement)
-                <div class="achievement-card">
-                    <div class="achievement-header">
-                        <div class="achievement-icon">
-                            @if($achievement->type == 'award')
-                                <i class="bi bi-trophy"></i>
-                            @elseif($achievement->type == 'certification')
-                                <i class="bi bi-patch-check"></i>
-                            @elseif($achievement->type == 'publication')
-                                <i class="bi bi-journal-text"></i>
-                            @elseif($achievement->type == 'presentation')
-                                <i class="bi bi-easel"></i>
-                            @else
-                                <i class="bi bi-star"></i>
-                            @endif
-                        </div>
-                        <h3 class="achievement-title">{{ $achievement->title }}</h3>
+            <!-- Edit achievement entries here -->
+            <div class="achievement-card">
+                <div class="achievement-header">
+                    <div class="achievement-icon">
+                        <i class="bi bi-trophy"></i>
                     </div>
-                    <div class="achievement-details">
-                        <div class="achievement-meta">
-                            @if($achievement->date)
-                                <span class="achievement-date">
-                                    <i class="bi bi-calendar-event"></i>
-                                    {{ \Carbon\Carbon::parse($achievement->date)->format('M Y') }}
-                                </span>
-                            @endif
-                            @if($achievement->issuer)
-                                <span class="achievement-issuer">
-                                    <i class="bi bi-building"></i>
-                                    {{ $achievement->issuer }}
-                                </span>
-                            @endif
-                        </div>
-                        <p>{{ $achievement->description }}</p>
-                        
-                        @if(!empty($achievement->images) && is_array($achievement->images))
-                            <div class="achievement-images">
-                                @foreach($achievement->images as $image)
-                                    @if(!empty($image))
-                                        @php
-                                            // Check if image path already has storage/ prefix
-                                            $imagePath = Str::startsWith($image, 'storage/') 
-                                                ? $image 
-                                                : (Str::startsWith($image, '/') ? 'storage' . $image : 'storage/' . $image);
-                                        @endphp
-                                        <div class="image-wrapper">
-                                            <img src="{{ asset($imagePath) }}" alt="{{ $achievement->title }}" class="achievement-image" onerror="this.style.display='none'" onclick="openImageModal(this.src, '{{ $achievement->title }}')">
-                                        </div>
-                                    @endif
-                                @endforeach
-                            </div>
-                        @endif
-                        
-                        @if($achievement->url)
-                            <a href="{{ $achievement->url }}" class="view-link" target="_blank" rel="noopener noreferrer">
-                                <span>View</span>
-                                <i class="bi bi-arrow-right"></i>
-                            </a>
-                        @endif
-                    </div>
+                    <h3 class="achievement-title">Best Project Award</h3>
                 </div>
-            @empty
-                <div class="empty-message">
-                    <i class="bi bi-trophy"></i>
-                    <h3>No Achievements Yet</h3>
-                    <p>Add your awards, certifications, and other accomplishments from the Admin panel to showcase your achievements and recognitions.</p>
-                    <div class="tech-decoration">
-                        <div class="code-line"></div>
-                        <div class="code-line"></div>
-                        <div class="code-line"></div>
+                <div class="achievement-details">
+                    <div class="achievement-meta">
+                        <span class="achievement-date">
+                            <i class="bi bi-calendar-event"></i>
+                            May 2024
+                        </span>
+                        <span class="achievement-issuer">
+                            <i class="bi bi-building"></i>
+                            University of Dhaka
+                        </span>
                     </div>
+                    <p>Awarded for outstanding project work in Computer Science and Engineering.</p>
                 </div>
-            @endforelse
+            </div>
         </div>
     </div>
 
